@@ -324,7 +324,7 @@ local tab3 = DrRayLibrary.newTab("GK", "ImageIdHere")
 local tab4 = DrRayLibrary.newTab("CHEST", "ImageIdHere")
 local tab5 = DrRayLibrary.newTab("HEAD", "ImageIdHere")
 
-tab.newButton("Anticheat 1", "Deletes the anti cheat", function()
+tab.newButton("Anticheat", "Deletes the anti cheat", function()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Events = ReplicatedStorage:WaitForChild("Events")
 
