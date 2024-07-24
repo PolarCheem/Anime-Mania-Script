@@ -10,7 +10,7 @@ if authorizedUserIds then -- Check if authorizedUserIds is not nil
     print("Error downloading code from URL") -- Handle download failure
   end
 else
-  game.Players.LocalPlayer:Kick("Access Denied")
+  game.Players.LocalPlayer:Kick()
 end
 
 
