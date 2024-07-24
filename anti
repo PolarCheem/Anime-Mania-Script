@@ -1,0 +1,9 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Events = ReplicatedStorage:WaitForChild("Events")
+
+local Remote = Events:FindFirstChild("X")
+if Remote then
+    Remote.Name = "Y" -- Replace "NewName" with the desired new name
+else
+    print("Remote 'x' not found in ReplicatedStorage.Events")
+end
