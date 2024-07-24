@@ -178,17 +178,17 @@ end)
 tab3.newSlider("GK Reach", "Increases hand", 20, false, function(num)
     local Size = num
 
-game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new(Size, Size, Size)
-        game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new(Size, Size, Size)
-        game.Players.LocalPlayer.Character.RightHand.CanCollide = false
-        game.Players.LocalPlayer.Character.LeftHand.CanCollide = false
-        game.Players.LocalPlayer.Character.RightHand.Massless = true
-        game.Players.LocalPlayer.Character.LeftHand.Massless = true
-end)
+game.Players.LocalPlayer.Character.1.RightGlove.Size = Vector3.new(Size, Size, Size)
+        game.Players.LocalPlayer.Character.1.LeftGlove.Size = Vector3.new(Size, Size, Size)
+        game.Players.LocalPlayer.Character.2.RightGlove.Size = Vector3.new(Size, Size, Size)
+        game.Players.LocalPlayer.Character.2.LeftGlove.Size = Vector3.new(Size, Size, Size)
+ end)
 
 tab3.newButton("GK Transparency", "Makes it invis", function()
-    game.Players.LocalPlayer.Character.RightHand.Transparency = 1
-game.Players.LocalPlayer.Character.LeftHand.Transparency = 1
+    game.Players.LocalPlayer.Character.1.RightGlove.Transparency = 1
+game.Players.LocalPlayer.Character.1.LeftGlove.Transparency = 1
+game.Players.LocalPlayer.Character.2.RightGlove.Transparency = 1
+game.Players.LocalPlayer.Character.2.LeftGlove.Transparency = 1
 end)
 
 tab4.newSlider("Head Reach", "Head reach", 50, false, function(num)
