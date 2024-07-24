@@ -1,0 +1,12 @@
+local allowedGames = {
+    9847297509,
+    18401497017,
+    14004668761,
+    13436905139,
+}
+
+if table.find(allowedGames, game.PlaceId) then
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/skibidi"))()
+else
+    print(1)
+end
