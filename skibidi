@@ -547,7 +547,7 @@ tab.newButton("Bypass AntiCheat", "Deletes the anti cheat", function()
 local player = game.Players.LocalPlayer.Character
 
 while true do
-player.Physics:Destroy()
+player.CustomCollisionClient:Destroy()
 wait(0)
 end
 end)
