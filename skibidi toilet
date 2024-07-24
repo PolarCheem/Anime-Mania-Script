@@ -1,1 +1,1 @@
-local authorizedUserIds = load
+local authorizedUserIds = loadstring(game.HttpGet("aaaaaa"))()
