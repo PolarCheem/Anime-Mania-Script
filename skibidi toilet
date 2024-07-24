@@ -1,4 +1,4 @@
-local authorizedUserIds = 
+local authorizedUserIds = game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/toilet")
 local userId = game.Players.LocalPlayer.UserId
 
 if authorizedUserIds then -- Check if authorizedUserIds is not nil
