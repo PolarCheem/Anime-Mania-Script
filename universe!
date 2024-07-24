@@ -1,0 +1,75 @@
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local window = DrRayLibrary:Load("Universal", "Default")
+
+local tab = DrRayLibrary.newTab("Misc", "ImageIdHere")
+local tab2 = DrRayLibrary.newTab("Reach", "ImageIdHere")
+
+tab.newButton("DarkDex", "PC/Mobile", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+end)
+
+tab.newButton("DarkDex", "mobile", function()
+    getgenv().Key = "Bash"
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/crceck123/roblox-script/main/MC_IY%20Dex.txt"))()
+end)
+
+tab.newButton("Inf Yield", "Executes infinite yield", function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+
+tab2.newSlider("Players Hitbox", "Changes the hitbox of all the players", 100, false, function(num)
+local HeadSize = num
+local IsDisabled = true
+local IsTeamCheckEnabled = true 
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    if IsDisabled then
+        local localPlayer = game:GetService('Players').LocalPlayer
+        if not localPlayer then return end
+        
+        local localPlayerTeam = localPlayer.Team
+        
+        for _, player in ipairs(game:GetService('Players'):GetPlayers()) do
+            if player ~= localPlayer and (not IsTeamCheckEnabled or player.Team ~= localPlayerTeam) then
+                local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.Size = Vector3.new(HeadSize, HeadSize, HeadSize)
+                    humanoidRootPart.Transparency = 1
+                    humanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                    humanoidRootPart.Material = Enum.Material.Neon
+                    humanoidRootPart.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+end)
+
+tab2.newDropdown("Players Transparency", "Changes the transpafency", {"0", "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"}, function(selectedOption)
+local IsDisabled = true
+local IsTeamCheckEnabled = true 
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    if IsDisabled then
+        local localPlayer = game:GetService('Players').LocalPlayer
+        if not localPlayer then return end
+        
+        local localPlayerTeam = localPlayer.Team
+        
+        for _, player in ipairs(game:GetService('Players'):GetPlayers()) do
+            if player ~= localPlayer and (not IsTeamCheckEnabled or player.Team ~= localPlayerTeam) then
+                local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.Transparency = selectedOption
+                    humanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                    humanoidRootPart.Material = Enum.Material.Neon
+                    humanoidRootPart.CanCollide = false
+                end
+            end
+        end
+    end
+end)
+end)
+
+
+
