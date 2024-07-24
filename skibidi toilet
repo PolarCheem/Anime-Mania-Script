@@ -1,1 +1,18 @@
-local authorizedUserIds = loadstring(game.HttpGet("aaaaaa"))()
+local authorizedUserIds = game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/toilet")
+
+local userId = game.Players.LocalPlayer.UserId
+
+if authorizedUserIds then -- Check if authorizedUserIds is not nil
+  local downloadedCode = game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/skibidi")
+  if downloadedCode then -- Check if download succeeded
+    loadstring(downloadedCode)()
+  else
+    print("Error downloading code from URL") -- Handle download failure
+  end
+else
+  game.Players.LocalPlayer:Kick("Access Denied")
+end
+
+
+
+
