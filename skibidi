@@ -602,10 +602,6 @@ hitbox.Transparency = selectedOption
 hitbox2.Transparency = selectedOption
 end)
 
-game:GetService("ReplicatedStorage"):WaitForChild("CatchBall"):FireServer(unpack(args))
-end
-end)
-
 tab5.newSlider("Reach", "head reach", 50, false, function(num)
 local player = game.Players.LocalPlayer.Character
 local hitbox = player:WaitForChild("Head")
