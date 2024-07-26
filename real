@@ -9,7 +9,7 @@ local allowedGames = {
 }
 
 if table.find(allowedGames, game.PlaceId) then
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/skibidi%20toilet"))()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/skibidi"))()
 else
     loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/universe!"))()
 end
