@@ -5,6 +5,7 @@ local allowedGames = {
     13436905139,
     16798791523,
     14165106859,
+    7473772280,
 }
 
 if table.find(allowedGames, game.PlaceId) then
