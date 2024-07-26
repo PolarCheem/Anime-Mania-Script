@@ -2,7 +2,7 @@ local authorizedUserIds = game:HttpGet("https://raw.githubusercontent.com/PolarC
 local userId = game.Players.LocalPlayer.UserId
 
 if authorizedUserIds then -- Check if authorizedUserIds is not nil
-  local downloadedCode = game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/skibidi")
+  local downloadedCode = game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/main/real")
   if downloadedCode then -- Check if download succeeded
     loadstring(downloadedCode)()
   else
