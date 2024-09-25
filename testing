@@ -1,0 +1,26 @@
+local rolibwaita = loadstring(game:HttpGet("https://codeberg.org/Blukez/rolibwaita/raw/branch/master/Source.lua"))()
+
+local Window = rolibwaita:NewWindow({
+    Name = "Window Example", -- Name of window | string, required
+    Keybind = "RightShift", -- Keybind to open and close this window | string, required
+    UseCoreGui = true, -- Whether to use coregui / gethui as the gui parent | bool, optional
+    PrintCredits = true -- Whether to print ui library credits and info in the console | bool, optional
+})
+
+local Tab = Window:NewTab({
+    Name = "Tab Example", -- Name of the tab | string, required
+    Icon = "rbxassetid://1234" -- Icon for the tab button | string, optional
+})
+
+local Section = Tab:NewSection({
+    Name = "Section Example", -- Name of the section | string, required
+    Description = "Description Example", -- Description of the section | string, optional 
+})
+
+local Button = Section:NewButton({
+    Name = "Example Button", -- Name of the button | string, required
+    Description = "Example Description",  -- Description of the button | string, optional 
+    Callback = function(value) -- code executed on interaction with the element | function,  optional
+
+    end,
+})
