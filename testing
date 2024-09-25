@@ -1,4 +1,4 @@
-local rolibwaita = loadstring(game:HttpGet("https://codeberg.org/Blukez/rolibwaita/raw/branch/master/Source.lua"))()
+local rolibwaita = loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/duck/refs/heads/main/New%20ui%3F"))()
 
 local Window = rolibwaita:NewWindow({
     Name = "Window Example", -- Name of window | string, required
