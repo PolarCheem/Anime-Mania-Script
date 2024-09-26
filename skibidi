@@ -1,11 +1,11 @@
 if game.PlaceId == 3840352284 then
 
--- Localz
+-- Local
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
-local win = lib:Create("Niagra.Paid","Volleyball 4.2")
-local tab = win:tab("Spike",true)
-local tab2 = win:tab("Backrow",true)
-local cred = win:tab("Credits",true)
+local win = lib:Create("Niagra.Paid", "Volleyball 4.2")
+local tab = win:tab("Spike", true)
+local tab2 = win:tab("Backrow", true)
+local cred = win:tab("Credits", true)
 local player = game.Players.LocalPlayer
 local char = player.Character
 local backrow = game.Workspace.BackrowLF
@@ -13,45 +13,45 @@ local serve = game.Workspace.ServeLF
 local jump = false
 local jp = 16
 
+-- function
+function Jump()
+    while jump do
+        char.Humanoid.JumpPower = jp
+        wait(0) 
+    end
+end
+
 -- UI
-
-tab:input("HipHeight","Makes u higher off the ground",true,function(v)
-char.Humanoid.HipHeight = v
+tab:input("HipHeight", "Makes you higher off the ground", true, function(v)
+    char.Humanoid.HipHeight = tonumber(v) or char.Humanoid.HipHeight
 end)
 
-function Jump() 
-while jump do
-char.Humanoid.JumpPower = jp
-wait(0)
-end
-end
-
-tab:toggle("JumpPower Toggle",false,function(v)
-jump = v
-if jump then
-spawn(jump)
-end
+tab:toggle("JumpPower Toggle", false, function(v)
+    jump = v
+    if jump then
+        spawn(Jump) 
+    end
 end)
 
-tab:input("Jump Power","Makes u higher",true,function(v)
-local num = tonumber(v)
+tab:input("Jump Power", "Makes you jump higher", true, function(v)
+    local num = tonumber(v)
     if num and num > 0 then
-        jp = num 
-        print("Jump Power set to: " .. headDistanceThreshold)
+        jp = num
+        print("Jump Power set to: " .. jp) 
     else
         print("Invalid input. Please enter a valid positive number.")
     end
 end)
 
-tab2:button("No LineFault",function()
-serve.Position = Vector3.new(0, 0, 0)
-serve.Size = Vector3.new(100, 0.5, 100)
-serve.CanCollide = true
+tab2:button("No LineFault", function()
+    serve.Position = Vector3.new(0, 0, 0)
+    serve.Size = Vector3.new(100, 0.5, 100)
+    serve.CanCollide = true
 end)
 
-tab2:button("Jump anywhere",function()
-backrow.Position = Vector3.new(0, 0, 0)
-backrow.Size = Vector3.new(100, 0.5, 100)
+tab2:button("Jump anywhere", function()
+    backrow.Position = Vector3.new(0, 0, 0)
+    backrow.Size = Vector3.new(100, 0.5, 100)
 end)
 
 cred:label("ono101 - scripting")
