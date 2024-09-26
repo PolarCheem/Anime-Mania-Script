@@ -14,8 +14,9 @@ tab1:button("Test Button",function()
 		speedOn()
 end)
 
-tab1:toggle("Test Toggle",true,function(v)
-    print(v)   
+tab1:toggle("Test Toggle",false,function(v)
+    speed = true
+		speedOn()
 end)
 
 tab1:toggle("Test Toggle2",false,function(v)
