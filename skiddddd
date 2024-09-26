@@ -1,6 +1,6 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 
-local win = lib:Create("Shit Lib","Game Name")
+local win = lib:Create("Niagra.paid","Game Name")
 local tab1 = win:tab("Hi test",true)
 local tab2 = win:tab("Hi test2",false)
 
