@@ -10,30 +10,55 @@ local cred = win:tab("Credit", false)
 local player = game.Players.LocalPlayer
 local Char = player.Character or player.CharacterAdded:Wait() 
 local speed = false
-local customSpeed = 20  -- Default speed if no input is given
+local customSize = 5
+local left = Char:FindFirstChild("Left Leg")
+local right = Char:FindFirstChild("Right Leg")
+local original = left.Size
 
 -- Functions
 
-local function updateSpeed()
-    if Char and Char:FindFirstChild("Humanoid") then
-        if speed then
-            Char.Humanoid.WalkSpeed = customSpeed
+local function updateLeft()
+    if Char and Char:FindFirstChild("Left Leg") then
+        if size then
+            left.Size = Vector3.new(customSize,customSize,customSize)
         else
-            Char.Humanoid.WalkSpeed = 16  -- Default speed when toggle is off
+            left.Size = Vector3.new(original, original, original)
+        end
+    end
+end
+
+local function updateRight()
+    if Char and Char:FindFirstChild("Left Leg") then
+        if size then
+            right.Size = Vector3.new(customSize,customSize,customSize)
+        else
+            right.Size = Vector3.new(original, original, original)
         end
     end
 end
 
 local function setupCharacter(character)
     Char = character
-    updateSpeed()  
+    updateLeft()  
 end
 
 player.CharacterAdded:Connect(setupCharacter)
 
 setupCharacter(Char)
 
+local function setupCharacter2(character)
+    Char = character
+    updateRight()  
+end
+
+player.CharacterAdded:Connect(setupCharacter2)
+
+setupCharacter2(Char)
+
 -- Library
+
+left.Massless = true
+right.Massless = true
 
 playertab:label("Made By Ono")
 
@@ -43,7 +68,7 @@ end)
 
 playertab:toggle("Speed Test Toggle", false, function(v)
     speed = v  
-    updateSpeed() 
+    updateSize() 
 end)
 
 cred:toggle("Test Toggle2", false, function(v)
@@ -53,9 +78,10 @@ end)
 playertab:input("Speed Input", "Enter speed here...", true, function(v)
     local num = tonumber(v)
     if num then
-        customSpeed = num 
-        print("Speed set to: " .. customSpeed)
-				updateSpeed()
+        customSize = num 
+        print("Size set to: " .. customSpeed)
+				updateLeft()
+				updateRight()
     else
         print("Invalid input. Please enter a valid number.")
     end
