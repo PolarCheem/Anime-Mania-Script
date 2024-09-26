@@ -12,6 +12,11 @@ local FootSize = 2
 
 --\\________//--
 
+while true do
+char.Physics:Destroy()
+wait(0)
+end
+
 --  ________
 --// Window \\--
 
@@ -41,10 +46,5 @@ end)
 tab1:input("Foot Size","Type Size Here ...",false,function(v)
 FootSize = v
 end)
-
-while true do
-char.Physics:Destroy()
-wait(0)
-end
 
 end
