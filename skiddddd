@@ -5,11 +5,13 @@ local playertab = win:tab("Leg", true)
 local cred = win:tab("Credit", false)
 
 -- Variables
-local distanceThreshold = 1  
+local distanceThreshold = 1
+local distanceThreshold2 = 1
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local leftLeg = character:WaitForChild("Left Leg")
 local rightLeg = character:WaitForChild("Right Leg")
+local chest = character:WaitForChild("Chest")
 
 -- Locals
 local speed = false
@@ -39,9 +41,25 @@ local function checkProximity()
     end
 end
 
+local function checkProximity2()
+    while true do
+        task.wait(0) 
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToChest = (part.Position - chest.Position).Magnitude    
+                if distanceToChest <= distanceThreshold2 then
+                    firetouchinterest(chest, part, 0) 
+                    firetouchinterest(chest, part, 1) 
+                end
+            end
+        end
+    end
+end
+
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg") 
     rightLeg = character:FindFirstChild("Right Leg") 
+		chest = character:FindFirstChild("Chest")
 end
 
 -- Coding
@@ -55,7 +73,11 @@ cred:button("Test Button", function()
     print(customSize)
 end)
 
-playertab:toggle("Size Test Toggle", false, function(v)
+playertab:toggle("Leg Touch Interest Test", false, function(v)
+    speed = v  
+end)
+
+playertab:toggle("Leg Touch Interest Test", false, function(v)
     speed = v  
 end)
 
@@ -63,7 +85,17 @@ cred:toggle("Test Toggle2", false, function(v)
     print(v)   
 end)
 
-playertab:input("Distance Input", "Enter distance here...", true, function(v)
+playertab:input("Chest Distance Input", "Enter distance here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        distanceThreshold2 = num 
+        print("Distance threshold set to: " .. distanceThreshold2)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
+end)
+
+playertab:input("Leg Distance Input", "Enter distance here...", true, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         distanceThreshold = num 
@@ -73,6 +105,7 @@ playertab:input("Distance Input", "Enter distance here...", true, function(v)
     end
 end)
 
+checkProximity2
 checkProximity()
 
 -- AC Bypass
