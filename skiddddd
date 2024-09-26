@@ -1,49 +1,56 @@
 -- Library
-
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "TRS")
-local playertab = win:tab("Player", true)
+local playertab = win:tab("Leg", true)
 local cred = win:tab("Credit", false)
 
--- Locals
-
+-- Variables
+local distanceThreshold = 1  
 local player = game.Players.LocalPlayer
-local Char = player.Character or player.CharacterAdded:Wait()
+local character = player.Character or player.CharacterAdded:Wait()
+local leftLeg = character:WaitForChild("Left Leg")
+local rightLeg = character:WaitForChild("Right Leg")
+
+-- Locals
 local speed = false
 local customSize = 5
-local left = Char:FindFirstChild("Left Leg")
-local right = Char:FindFirstChild("Right Leg")
 
 -- Functions
 
-local function updateLegs()
-    if Char and left and right then
-        if speed then
-            left.Size = Vector3.new(customSize, 2, customSize)
-            right.Size = Vector3.new(customSize, 2, customSize)
-        else
-            left.Size = Vector3.new(1, 2, 1) 
-            right.Size = Vector3.new(1, 2, 1) 
+local function checkProximity()
+    while true do
+        task.wait(0) 
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToLeftLeg = (part.Position - leftLeg.Position).Magnitude
+                local distanceToRightLeg = (part.Position - rightLeg.Position).Magnitude
+
+                
+                if distanceToLeftLeg <= distanceThreshold then
+                    firetouchinterest(leftLeg, part, 0) 
+                    firetouchinterest(leftLeg, part, 1) 
+                end
+                
+                if distanceToRightLeg <= distanceThreshold then
+                    firetouchinterest(rightLeg, part, 0) 
+                    firetouchinterest(rightLeg, part, 1) 
+                end
+            end
         end
     end
 end
 
 local function setupCharacter(character)
-    Char = character
-    left = Char:FindFirstChild("Left Leg") 
-    right = Char:FindFirstChild("Right Leg") 
-
-    updateLegs()
+    leftLeg = character:FindFirstChild("Left Leg") 
+    rightLeg = character:FindFirstChild("Right Leg") 
 end
 
+-- Coding
+
 player.CharacterAdded:Connect(setupCharacter)
+setupCharacter(character)
 
-setupCharacter(Char)
-
--- Set legs to be massless
-if left then left.Massless = true end
-if right then right.Massless = true end
-
+-- UI
 playertab:label("Made By Ono")
 
 cred:button("Test Button", function()
@@ -52,25 +59,27 @@ end)
 
 playertab:toggle("Size Test Toggle", false, function(v)
     speed = v  
-    updateLegs() 
 end)
 
 cred:toggle("Test Toggle2", false, function(v)
     print(v)   
 end)
 
-playertab:input("Size Input", "Enter size here...", true, function(v)
+playertab:input("Distance Input", "Enter distance here...", true, function(v)
     local num = tonumber(v)
-    if num then
-        customSize = num 
-        print("Size set to: " .. customSize)
-        updateLegs() 
+    if num and num > 0 then
+        distanceThreshold = num 
+        print("Distance threshold set to: " .. distanceThreshold)
     else
-        print("Invalid input. Please enter a valid number.")
+        print("Invalid input. Please enter a valid positive number.")
     end
 end)
 
+checkProximity()
+
+-- AC Bypass
+
 while true do
-Char.Physics:Destroy()
+character.Physics:Destroy()
 wait(0)
 end
