@@ -1,3 +1,12 @@
+-- Anti cheat bypass trs
+
+local player = game.Players.LocalPlayer.Character
+
+while true do
+player.Physics:Destroy()
+wait(0)
+end
+
 -- Library
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
@@ -8,80 +17,74 @@ local cred = win:tab("Credit", false)
 -- Locals
 
 local player = game.Players.LocalPlayer
-local Char = player.Character or player.CharacterAdded:Wait() 
+local Char = player.Character or player.CharacterAdded:Wait()
 local speed = false
 local customSize = 5
 local left = Char:FindFirstChild("Left Leg")
 local right = Char:FindFirstChild("Right Leg")
-local original = left.Size
+local originalSizes = {} 
 
 -- Functions
 
-local function updateLeft()
-    if Char and Char:FindFirstChild("Left Leg") then
-        if size then
-            left.Size = Vector3.new(customSize,customSize,customSize)
+local function updateLegs()
+    if Char and left and right then
+        if speed then
+            originalSizes["Left Leg"] = left.Size 
+            originalSizes["Right Leg"] = right.Size 
+            left.Size = Vector3.new(customSize, 2, customSize)
+            right.Size = Vector3.new(customSize, 2, customSize)
         else
-            left.Size = Vector3.new(original, original, original)
-        end
-    end
-end
-
-local function updateRight()
-    if Char and Char:FindFirstChild("Left Leg") then
-        if size then
-            right.Size = Vector3.new(customSize,customSize,customSize)
-        else
-            right.Size = Vector3.new(original, original, original)
+            if originalSizes["Left Leg"] and originalSizes["Right Leg"] then
+                left.Size = originalSizes["Left Leg"] 
+                right.Size = originalSizes["Right Leg"] 
+            end
         end
     end
 end
 
 local function setupCharacter(character)
     Char = character
-    updateLeft()  
+    left = Char:FindFirstChild("Left Leg") 
+    right = Char:FindFirstChild("Right Leg") 
+
+    if left and right then
+        originalSizes["Left Leg"] = left.Size 
+        originalSizes["Right Leg"] = right.Size 
+    end
+
+    updateLegs()
 end
 
 player.CharacterAdded:Connect(setupCharacter)
 
 setupCharacter(Char)
 
-local function setupCharacter2(character)
-    Char = character
-    updateRight()  
-end
 
-player.CharacterAdded:Connect(setupCharacter2)
 
-setupCharacter2(Char)
-
--- Library
-
-left.Massless = true
-right.Massless = true
+if left then left.Massless = true end
+if right then right.Massless = true end
 
 playertab:label("Made By Ono")
 
 cred:button("Test Button", function()
-	print(customSpeed)
+    print(customSize)
 end)
 
-playertab:toggle("Speed Test Toggle", false, function(v)
+playertab:toggle("Size Test Toggle", false, function(v)
     speed = v  
-    updateSize() 
+    updateLegs() 
 end)
 
 cred:toggle("Test Toggle2", false, function(v)
     print(v)   
 end)
 
-playertab:input("Speed Input", "Enter speed here...", true, function(v)
+playertab:input("Size Input", "Enter size here...", true, function(v)
     local num = tonumber(v)
     if num then
         customSize = num 
-        print("Size set to: " .. customSpeed)
-				updateLeft()
-				updateRight()
+        print("Size set to: " .. customSize)
+        updateLegs() 
     else
         print("Invalid input. Please enter a valid number.")
     end
