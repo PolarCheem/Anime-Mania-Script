@@ -3,7 +3,7 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "Test")
 local tab1 = win:tab("BigFoot", true)
-local cred = win:tab("credits", false)
+local creds = win:tab("credits", false)
 
 -- Locals
 
