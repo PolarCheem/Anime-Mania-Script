@@ -1,30 +1,61 @@
 -- Library
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "TRS")
-local playertab = win:tab("Leg", true)
+local playertab = win:tab("Player", true)
 local cred = win:tab("Credit", false)
 
 -- Variables
-local distanceThreshold = 1
-local distanceThreshold2 = 1
+local distanceThreshold = 1  
+local chestDistanceThreshold = 1  
+local headDistanceThreshold = 1  
+local ArmDistanceThreshold = 1  
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local leftLeg = character:WaitForChild("Left Leg")
 local rightLeg = character:WaitForChild("Right Leg")
-local chest = character:WaitForChild("Chest")
+local chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")  
+local leftArm = character:FindFirstChild("Left Arm")  
+local rightArm = character:FindFirstChild("Right Arm")  
+local head = character:FindFirstChild("Head")  
+
 
 -- Locals
 local speed = false
 local customSize = 5
 
--- Functions
 local function checkProximity()
     while true do
-        task.wait(0) 
+        task.wait(0.5) 
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToChest = (part.Position - chest.Position).Magnitude  
+                local distanceToLeftArm = (part.Position - leftArm.Position).Magnitude  
+								local distanceToHead = (part.Position - head.Position).Magnitude  
+	              local distanceToRightArm = (part.Position - rightArm.Position).Magnitude  
                 local distanceToLeftLeg = (part.Position - leftLeg.Position).Magnitude
                 local distanceToRightLeg = (part.Position - rightLeg.Position).Magnitude
+
+                
+                if distanceToChest <= chestDistanceThreshold then
+                    firetouchinterest(chest, part, 0) 
+                    firetouchinterest(chest, part, 1) 
+                end
+
+				        if distanceToHead <= headDistanceThreshold then
+                    firetouchinterest(head, part, 0) 
+                    firetouchinterest(head, part, 1) 
+                end
+                
+                if distanceToLeftArm <= leftArmDistanceThreshold then
+                    firetouchinterest(leftArm, part, 0) 
+                    firetouchinterest(leftArm, part, 1) 
+                end
+                
+                
+                if distanceToRightArm <= rightArmDistanceThreshold then
+                    firetouchinterest(rightArm, part, 0) 
+                    firetouchinterest(rightArm, part, 1) 
+                end
 
                 
                 if distanceToLeftLeg <= distanceThreshold then
@@ -41,43 +72,27 @@ local function checkProximity()
     end
 end
 
-local function checkProximity2()
-    while true do
-        task.wait(0) 
-        for _, part in ipairs(workspace:GetDescendants()) do
-            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
-                local distanceToChest = (part.Position - chest.Position).Magnitude    
-                if distanceToChest <= distanceThreshold2 then
-                    firetouchinterest(chest, part, 0) 
-                    firetouchinterest(chest, part, 1) 
-                end
-            end
-        end
-    end
-end
-
+-- Setup character
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg") 
     rightLeg = character:FindFirstChild("Right Leg") 
-		chest = character:FindFirstChild("Chest")
+    chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")  
+    head = character:FindFirstChild("Head") 
+		leftArm = character:FindFirstChild("Left Arm")  
+    rightArm = character:FindFirstChild("Right Arm") 
 end
 
--- Coding
 player.CharacterAdded:Connect(setupCharacter)
 setupCharacter(character)
 
--- UI
+-- UI Elements
 playertab:label("Made By Ono")
 
 cred:button("Test Button", function()
     print(customSize)
 end)
 
-playertab:toggle("Leg Touch Interest Test", false, function(v)
-    speed = v  
-end)
-
-playertab:toggle("Leg Touch Interest Test", false, function(v)
+playertab:toggle("Size Test Toggle", false, function(v)
     speed = v  
 end)
 
@@ -85,31 +100,48 @@ cred:toggle("Test Toggle2", false, function(v)
     print(v)   
 end)
 
-playertab:input("Chest Distance Input", "Enter distance here...", true, function(v)
-    local num = tonumber(v)
-    if num and num > 0 then
-        distanceThreshold2 = num 
-        print("Distance threshold set to: " .. distanceThreshold2)
-    else
-        print("Invalid input. Please enter a valid positive number.")
-    end
-end)
 
-playertab:input("Leg Distance Input", "Enter distance here...", true, function(v)
+playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         distanceThreshold = num 
-        print("Distance threshold set to: " .. distanceThreshold)
+        print("Distance threshold for legs set to: " .. distanceThreshold)
     else
         print("Invalid input. Please enter a valid positive number.")
     end
 end)
 
-checkProximity2
-checkProximity()
 
--- AC Bypass
-while true do
-character.Physics:Destroy()
-wait(0)
-end
+playertab:input("Distance Input (Chest)", "Enter distance for chest here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        chestDistanceThreshold = num 
+        print("Distance threshold for chest set to: " .. chestDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
+end)
+
+
+playertab:input("Distance Input (Arms)", "Enter distance for right arm here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ArmDistanceThreshold = num 
+        print("Distance threshold for right arm set to: " .. ArmDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
+end)
+
+playertab:input("Distance Input (Head)", "Enter distance for right arm here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        headDistanceThreshold = num 
+        print("Distance threshold for right arm set to: " .. headDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
+end)
+
+
+checkProximity()
