@@ -1,0 +1,56 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+
+--[[
+
+my attempt on making a ui :skull:
+
+made by xz#1111 and ozz#4703
+
+features coming soon:
+sliders
+keybinds
+color pickers
+notification
+
+
+sorry i rushed this in a few hours lol
+
+
+
+]]
+
+local win = lib:Create("Shit Lib","Game Name")
+local tab1 = win:tab("Hi test",true)
+local tab2 = win:tab("Hi test2",false)
+
+tab1:label("TestLabel")
+
+tab1:button("Test Button",function()
+    print("Button Pressed")
+end)
+
+tab1:toggle("Test Toggle",true,function(v)
+    print(v)   
+end)
+
+tab1:toggle("Test Toggle2",false,function(v)
+    print(v)   
+end)
+
+tab1:input("Message","Type Here...",true,function(v)
+    print(v)    
+end)
+
+tab2:label("TestLabel asdasdasdas")
+
+tab2:button("Test Button",function()
+    print("Button Pressed")
+end)
+
+tab2:toggle("Test Toggle",true,function(v)
+    print(v)   
+end)
+
+tab2:toggle("Test Toggle2",false,function(v)
+    print(v)   
+end)
