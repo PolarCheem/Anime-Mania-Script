@@ -29,9 +29,9 @@ tab1:toggle("Bigfoot Toggle",false,function(v)
 bigfoot = v
 
 if bigfoot then
-leftleg.Size = Vector3.new(FootSize,FootSize, FootSize)
+leftleg.Size = Vector3.new(FootSize,2,FootSize)
 leftleg.Massless = true
-rightleg.Size = Vector3.new(FootSize,FootSize, FootSize)
+rightleg.Size = Vector3.new(FootSize,2,FootSize)
 rightleg.Massless = true
 wait(0)
 end
