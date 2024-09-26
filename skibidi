@@ -22,11 +22,15 @@ end)
 function Jump() 
 while jump do
 char.Humanoid.JumpPower = jp
+wait(0)
+end
 end
 
 tab:toggle("JumpPower Toggle",false,function(v)
-jump = true
-Jump()
+jump = v
+if jump then
+spawn(jump)
+end
 end)
 
 tab:input("Jump Power","Makes u higher",true,function(v)
