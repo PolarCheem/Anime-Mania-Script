@@ -14,21 +14,17 @@ local speed = false
 local customSize = 5
 local left = Char:FindFirstChild("Left Leg")
 local right = Char:FindFirstChild("Right Leg")
-local originalSizes = {} 
 
 -- Functions
 
 local function updateLegs()
     if Char and left and right then
         if speed then
-            originalSizes["Left Leg"] = left.Size 
-            originalSizes["Right Leg"] = right.Size 
             left.Size = Vector3.new(customSize, 2, customSize)
             right.Size = Vector3.new(customSize, 2, customSize)
-        else
-            if originalSizes["Left Leg"] and originalSizes["Right Leg"] then
-                left.Size = originalSizes["Left Leg"] 
-                right.Size = originalSizes["Right Leg"] 
+		        else
+            left.Size = Vector3.new(1,2,1) 
+            right.Size = Vector3.new(1,2,1) 
             end
         end
     end
@@ -38,11 +34,6 @@ local function setupCharacter(character)
     Char = character
     left = Char:FindFirstChild("Left Leg") 
     right = Char:FindFirstChild("Right Leg") 
-
-    if left and right then
-        originalSizes["Left Leg"] = left.Size 
-        originalSizes["Right Leg"] = right.Size 
-    end
 
     updateLegs()
 end
