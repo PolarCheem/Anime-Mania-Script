@@ -1,7 +1,7 @@
 -- Library
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
-local win = lib:Create("Niagra.paid", "Test")
+local win = lib:Create("Niagra.paid", "TRS")
 local playertab = win:tab("Player", true)
 local cred = win:tab("Credit", false)
 
