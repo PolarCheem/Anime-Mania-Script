@@ -12,13 +12,14 @@ local backrow = game.Workspace.BackrowLF
 local serve = game.Workspace.ServeLF
 
 -- UI
-tab:label("Spike stuff")
 
 tab:input("HipHeight","Makes u higher off the ground",true,function(v)
 char.Humanoid.HipHeight = v
 end)
 
-tab2:label("Backrow stuff")
+tab:input("JumpPower","Makes u higher off the ground",true,function(v)
+char.Humanoid.JumpPower = v
+end)
 
 tab2:button("No LineFault",function()
 serve.Position = Vector3.new(0, 0, 0)
