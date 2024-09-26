@@ -1,35 +1,47 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
-local win = lib:Create("Niagra.paid","Test")
-local tab1 = win:tab("BigFoot",true)
-local cred = win:tab("credits",false)
+-- Locals
 
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local win = lib:Create("Niagra.paid", "Test")
+local tab1 = win:tab("BigFoot", true)
+local cred = win:tab("credits", false)
 local player = game.Players.LocalPlayer
-local Char = player.Character
+local Char = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
 local speed = false
 
-tab1:label("Made By Ono")
-
-tab1:button("Test Button",function()
-    speed = true
-		speedOn()
-end)
-
-tab1:toggle("Test Toggle",false,function(v)
-    speed = true
-		speedOn()
-end)
-
-tab1:toggle("Test Toggle2",false,function(v)
-    print(v)   
-end)
-
-tab1:input("Message","Type Here...",true,function(v)
-    print(v)    
-end)
+-- Functions
 
 local function speedOn()
     while speed do
-        Char.Humanoid.WalkSpeed = 50
+        if Char and Char:FindFirstChild("Humanoid") then
+            Char.Humanoid.WalkSpeed = 50
+        end
         task.wait(0)  
     end
 end
+
+-- Library
+
+tab1:label("Made By Ono")
+
+tab1:button("Test Button", function()
+		print("button")
+end)
+
+tab1:toggle("Test Toggle", false, function(v)
+    speed = v  
+    if speed then
+        speedOn()  
+    else
+        if Char and Char:FindFirstChild("Humanoid") then
+            Char.Humanoid.WalkSpeed = 16 
+        end
+    end
+end)
+
+tab1:toggle("Test Toggle2", false, function(v)
+    print(v)   
+end)
+
+tab1:input("Message", "Type Here...", true, function(v)
+    print(v)    
+end)
