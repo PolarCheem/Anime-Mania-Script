@@ -2,8 +2,8 @@
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "Test")
-local tab1 = win:tab("BigFoot", true)
-local cred = win:tab("credits", false)
+local player = win:tab("Player", true)
+local cred = win:tab("Credit", false)
 
 -- Locals
 
@@ -35,23 +35,22 @@ setupCharacter(Char)
 
 -- Library
 
-tab1:label("Made By Ono")
+player:label("Made By Ono")
 
-tab1:button("Test Button", function()
-    speed = true
-    speedOn()
+cred:button("Test Button", function()
+	print(customSpeed)
 end)
 
-tab1:toggle("Test Toggle", false, function(v)
+player:toggle("Speed Test Toggle", false, function(v)
     speed = v  
     updateSpeed() 
 end)
 
-tab1:toggle("Test Toggle2", false, function(v)
+cred:toggle("Test Toggle2", false, function(v)
     print(v)   
 end)
 
-tab1:input("Speed Input", "Enter speed here...", true, function(v)
+player:input("Speed Input", "Enter speed here...", true, function(v)
     local num = tonumber(v)
     if num then
         customSpeed = num 
