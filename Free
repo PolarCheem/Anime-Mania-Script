@@ -1,1 +1,14 @@
-aaaa
+
+
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local win = lib:Create("Freemium","TRS")
+
+
+local tab1 = win:tab("Hi test",true)
+
+
+
+
+
+
+end
