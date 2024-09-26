@@ -10,6 +10,8 @@ local player = game.Players.LocalPlayer
 local char = player.Character
 local backrow = game.Workspace.BackrowLF
 local serve = game.Workspace.ServeLF
+local jump = false
+local jp = 16
 
 -- UI
 
@@ -17,8 +19,15 @@ tab:input("HipHeight","Makes u higher off the ground",true,function(v)
 char.Humanoid.HipHeight = v
 end)
 
+function Jump() 
+while jump do
+char.Humanoid.JumpPower = jp
+end
+
 tab:input("JumpPower","Makes u higher off the ground",true,function(v)
-char.Humanoid.JumpPower = v
+jp = v
+jump = true
+Jump()
 end)
 
 tab2:button("No LineFault",function()
