@@ -86,20 +86,11 @@ player.CharacterAdded:Connect(setupCharacter)
 setupCharacter(character)
 
 -- UI Elements
-playertab:label("Made By Ono")
-
-cred:button("Test Button", function()
-    print(customSize)
-end)
+playertab:label("Reaches")
 
 playertab:toggle("Size Test Toggle", false, function(v)
     speed = v  
 end)
-
-cred:toggle("Test Toggle2", false, function(v)
-    print(v)   
-end)
-
 
 playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
     local num = tonumber(v)
@@ -143,5 +134,8 @@ playertab:input("Distance Input (Head)", "Enter distance for right arm here...",
     end
 end)
 
+cred:label("Made By Ono")
+cred:label("Shit lib UI")
+cred:label("Kai Idea")
 
 checkProximity()
