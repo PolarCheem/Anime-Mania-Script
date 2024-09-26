@@ -14,7 +14,7 @@ local bigfoot = false
 --  ________
 --// Window \\--
 
-local win = lib:Create("Freemium","TRS")
+local win = lib:Create("Freemium","Classic Soccer")
 
 --\\________//--
 
