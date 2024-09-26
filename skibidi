@@ -539,102 +539,139 @@ end)
 end
 
 if game.PlaceId == 14165106859 then
+-- Library
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local win = lib:Create("Niagra.paid", "TRS")
+local playertab = win:tab("Player", true)
+local cred = win:tab("Credit", false)
 
-local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
-local window = DrRayLibrary:Load("TRS match pitch", "Default")
+-- Variables
+local distanceThreshold = 1  
+local chestDistanceThreshold = 1  
+local headDistanceThreshold = 1  
+local armDistanceThreshold = 1  
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local leftLeg = character:WaitForChild("Left Leg")
+local rightLeg = character:WaitForChild("Right Leg")
+local chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")  
+local leftArm = character:FindFirstChild("Left Arm")  
+local rightArm = character:FindFirstChild("Right Arm")  
+local head = character:FindFirstChild("Head")  
 
-local tab = DrRayLibrary.newTab("Bypass", "ImageIdHere")
-local tab2 = DrRayLibrary.newTab("LEG", "ImageIdHere")
-local tab3 = DrRayLibrary.newTab("GK", "ImageIdHere")
-local tab4 = DrRayLibrary.newTab("CHEST", "ImageIdHere")
-local tab5 = DrRayLibrary.newTab("HEAD", "ImageIdHere")
+-- Locals
+local speed = false
+local customSize = 5
 
-tab.newButton("Bypass AntiCheat", "Deletes the anti cheat", function()
-local player = game.Players.LocalPlayer.Character
+local function checkProximity()
+    while true do
+        task.wait(0.5) 
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToChest = (part.Position - chest.Position).Magnitude  
+                local distanceToLeftArm = (part.Position - leftArm.Position).Magnitude  
+                local distanceToHead = (part.Position - head.Position).Magnitude  
+                local distanceToRightArm = (part.Position - rightArm.Position).Magnitude  
+                local distanceToLeftLeg = (part.Position - leftLeg.Position).Magnitude
+                local distanceToRightLeg = (part.Position - rightLeg.Position).Magnitude
 
-while true do
-player.Physics:Destroy()
-wait(0)
+                if distanceToChest <= chestDistanceThreshold then
+                    firetouchinterest(chest, part, 0) 
+                    firetouchinterest(chest, part, 1) 
+                end
+
+                if distanceToHead <= headDistanceThreshold then
+                    firetouchinterest(head, part, 0) 
+                    firetouchinterest(head, part, 1) 
+                end
+                
+                if distanceToLeftArm <= armDistanceThreshold then
+                    firetouchinterest(leftArm, part, 0) 
+                    firetouchinterest(leftArm, part, 1) 
+                end
+                
+                if distanceToRightArm <= armDistanceThreshold then
+                    firetouchinterest(rightArm, part, 0) 
+                    firetouchinterest(rightArm, part, 1) 
+                end
+
+                if distanceToLeftLeg <= distanceThreshold then
+                    firetouchinterest(leftLeg, part, 0) 
+                    firetouchinterest(leftLeg, part, 1) 
+                end
+                
+                if distanceToRightLeg <= distanceThreshold then
+                    firetouchinterest(rightLeg, part, 0) 
+                    firetouchinterest(rightLeg, part, 1) 
+                end
+            end
+        end
+    end
 end
+
+local function setupCharacter(character)
+    leftLeg = character:FindFirstChild("Left Leg") 
+    rightLeg = character:FindFirstChild("Right Leg") 
+    chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")  
+    head = character:FindFirstChild("Head") 
+    leftArm = character:FindFirstChild("Left Arm")  
+    rightArm = character:FindFirstChild("Right Arm") 
+end
+
+player.CharacterAdded:Connect(setupCharacter)
+setupCharacter(character)
+
+-- UI Elements
+playertab:label("Enjoy")
+
+playertab:toggle("Reach Toggle", false, function(v)
+    speed = v  
 end)
 
-tab2.newSlider("Reach", "Enables reach", 50, false, function(num)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Right Leg")
-local hitbox2 = player:WaitForChild("Left Leg")
-
-hitbox.CanCollide = false
-hitbox.Massless = true
-hitbox.Size = Vector3.new(num, 2, num)
-hitbox2.CanCollide = false
-hitbox2.Massless = true
-hitbox2.Size = Vector3.new(num, 2, num)
+playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        distanceThreshold = num 
+        print("Distance threshold for legs set to: " .. distanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
 end)
 
-tab2.newDropdown("Transparency", "0", {"0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"}, function(selectedOption)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Right Leg")
-local hitbox2 = player:WaitForChild("Left Leg")
-
-hitbox.Transparency = selectedOption
-hitbox2.Transparency = selectedOption
+playertab:input("Distance Input (Chest)", "Enter distance for chest here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        chestDistanceThreshold = num 
+        print("Distance threshold for chest set to: " .. chestDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
 end)
 
-tab3.newSlider("Reach", "GK reach", 50, false, function(num)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Right Arm")
-local hitbox2 = player:WaitForChild("Left Arm")
-
-hitbox.CanCollide = false
-hitbox.Massless = true
-hitbox.Size = Vector3.new(num, num, num)
-hitbox2.CanCollide = false
-hitbox2.Massless = true
-hitbox2.Size = Vector3.new(num, num, num)
+playertab:input("Distance Input (Arms)", "Enter distance for arms here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        armDistanceThreshold = num 
+        print("Distance threshold for arms set to: " .. armDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
 end)
 
-tab3.newDropdown("Transparency", "0", {"0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"}, function(selectedOption)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Right Arm")
-local hitbox2 = player:WaitForChild("Left Arm")
-
-hitbox.Transparency = selectedOption
-hitbox2.Transparency = selectedOption
+playertab:input("Distance Input (Head)", "Enter distance for head here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        headDistanceThreshold = num 
+        print("Distance threshold for head set to: " .. headDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
 end)
 
-tab5.newSlider("Reach", "head reach", 50, false, function(num)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Head")
+cred:label("Made By ono101")
+cred:label("Ui by ShitLib")
 
-hitbox.face:Destroy()
-hitbox.CanCollide = false
-hitbox.Massless = true
-hitbox.Size = Vector3.new(num, num, num)
-end)
-
-tab5.newDropdown("Transparency", "0", {"0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"}, function(selectedOption)
-local player = game.Players.LocalPlayer.Character
-
-player.Head.Transparency = selectedOption
-player.Head.Transparency = selectedOption
-end)
-
-tab4.newSlider("Reach", "torso reach", 50, false, function(num)
-local player = game.Players.LocalPlayer.Character
-local hitbox = player:WaitForChild("Torso")
-
-hitbox.CanCollide = false
-hitbox.Massless = true
-hitbox.Size = Vector3.new(num, num, num)
-end)
-
-tab4.newDropdown("Transparency", "0", {"0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1"}, function(selectedOption)
-local player = game.Players.LocalPlayer.Character
-
-player.Torso.Transparency = selectedOption
-player.Torso.Transparency = selectedOption
-end)
-
+checkProximity()
 end
 
 if game.PlaceId == 7473772280 then
