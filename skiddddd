@@ -1,23 +1,23 @@
--- UI
+-- Library
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "Test")
 local tab1 = win:tab("BigFoot", true)
-local creds = win:tab("credits", false)
+local cred = win:tab("credits", false)
 
 -- Locals
 
 local player = game.Players.LocalPlayer
-local Char = player.Character or player.CharacterAdded:Wait() -- Wait for character if not loaded
+local Char = player.Character or player.CharacterAdded:Wait() 
 local speed = false
-local customSpeed = 16
+local customSpeed = 20  -- Default speed if no input is given
 
 -- Functions
 
 local function speedOn()
     while speed do
         if Char and Char:FindFirstChild("Humanoid") then
-            Char.Humanoid.WalkSpeed = 50
+            Char.Humanoid.WalkSpeed = customSpeed
         end
         task.wait(0)  
     end
@@ -27,8 +27,9 @@ end
 
 tab1:label("Made By Ono")
 
-creds:button("Test Button", function()
-		print("button")
+tab1:button("Test Button", function()
+    speed = true
+    speedOn()
 end)
 
 tab1:toggle("Test Toggle", false, function(v)
@@ -37,21 +38,21 @@ tab1:toggle("Test Toggle", false, function(v)
         speedOn()  
     else
         if Char and Char:FindFirstChild("Humanoid") then
-            Char.Humanoid.WalkSpeed = 16 
+            Char.Humanoid.WalkSpeed = 16  
         end
     end
 end)
 
-tab1:input("Speed", "Enter speed here...", false, function(v)
+tab1:toggle("Test Toggle2", false, function(v)
+    print(v)   
+end)
+
+tab1:input("Speed Input", "Enter speed here...", true, function(v)
     local num = tonumber(v)
     if num then
-        customSpeed = num
+        customSpeed = num 
         print("Speed set to: " .. customSpeed)
     else
         print("Invalid input. Please enter a valid number.")
     end
-end)
-
-creds:toggle("Test Toggle2", false, function(v)
-    print(v)   
 end)
