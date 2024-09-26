@@ -128,6 +128,6 @@ playertab:input("Distance Input (Head)", "Enter distance for head here...", true
 end)
 
 cred:label("Made By ono101")
-playertab:label("Ui by ShitLib")
+cred:label("Ui by ShitLib")
 
 checkProximity()
