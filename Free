@@ -4,7 +4,7 @@
 if game.PlaceId == 14165106859 then
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()--\\________//--
 local player = game:GetService("Players")
-local char = player.Character
+local char = player.LocalPlayer.Character
 local leftleg = char:WaitForChild("Left Leg")
 local rightleg = char:WaitForChild("Right Leg")
 local bigfoot = false
