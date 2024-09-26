@@ -24,10 +24,19 @@ while jump do
 char.Humanoid.JumpPower = jp
 end
 
-tab:input("JumpPower","Makes u higher off the ground",true,function(v)
-jp = v
+tab:toggle("JumpPower Toggle",false,function(v)
 jump = true
 Jump()
+end)
+
+tab:input("Jump Power","Makes u higher",true,function(v)
+local num = tonumber(v)
+    if num and num > 0 then
+        jp = num 
+        print("Jump Power set to: " .. headDistanceThreshold)
+    else
+        print("Invalid input. Please enter a valid positive number.")
+    end
 end)
 
 tab2:button("No LineFault",function()
