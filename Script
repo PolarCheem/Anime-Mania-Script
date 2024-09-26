@@ -6,7 +6,7 @@ local found = false
 
 for i, v in pairs(HWIDTable) do
     if v:lower() == HWID:lower() then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/real"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/key%20system"))()
         found = true
         break
     end
