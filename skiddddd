@@ -27,18 +27,6 @@ tab1:input("Message","Type Here...",true,function(v)
     print(v)    
 end)
 
-tab2:button("Test Button",function()
-    print("Button Pressed")
-end)
-
-tab2:toggle("Test Toggle",true,function(v)
-    print(v)   
-end)
-
-tab2:toggle("Test Toggle2",false,function(v)
-    print(v)   
-end)
-
 local function speedOn()
     while speed do
         Char.Humanoid.WalkSpeed = 50
