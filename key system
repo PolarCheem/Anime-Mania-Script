@@ -1,14 +1,9 @@
 local GKey = "NIAGRAONTOP" 
 local TextLabelText1 = "Key System" 
 local TextLabelText2 = "Join Discord! .gg/cFaR7SzZ" 
-local TextFontAll = "FredokaOne" -- Enter Any Font!
-
+local TextFontAll = "FredokaOne" 
 
 local executeScript = loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe./8fb5ed20fb168d1ae3044ede45b90f67e3fb37a2/file'),true))
-
-
-local TweenService = game:GetService("TweenService")
-
 
 local KeySystem = Instance.new("ScreenGui")
 local KeyMain = Instance.new("Frame")
@@ -18,12 +13,10 @@ local UICorner_2 = Instance.new("UICorner")
 local Text1 = Instance.new("TextLabel")
 local Text2 = Instance.new("TextLabel")
 
--- Properties for KeySystem
 KeySystem.Name = "KeySystem"
 KeySystem.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 KeySystem.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- Properties for KeyMain
 KeyMain.Name = "KeyMain"
 KeyMain.Parent = KeySystem
 KeyMain.BackgroundColor3 = Color3.fromRGB(49, 49, 49)
@@ -34,7 +27,6 @@ KeyMain.Size = UDim2.new(0, 324, 0, 133)
 KeyMain.Active = true
 KeyMain.Draggable = true
 
--- Properties for KeyEnter
 KeyEnter.Name = "KeyEnter"
 KeyEnter.Parent = KeyMain
 KeyEnter.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
@@ -44,7 +36,7 @@ KeyEnter.Position = UDim2.new(0.191307724, 0, 0.651018858, 0)
 KeyEnter.Size = UDim2.new(0, 200, 0, 38)
 KeyEnter.Font = Enum.Font[TextFontAll]
 KeyEnter.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
-KeyEnter.PlaceholderText = "Enter You Key Here!"
+KeyEnter.PlaceholderText = "Enter Your Key Here!"
 KeyEnter.Text = ""
 KeyEnter.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyEnter.TextSize = 14.000
@@ -57,7 +49,6 @@ UICorner.Parent = KeyEnter
 UICorner_2.CornerRadius = UDim.new(0, 22)
 UICorner_2.Parent = KeyMain
 
--- Properties for Text1
 Text1.Name = "Text1"
 Text1.Parent = KeyMain
 Text1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -74,7 +65,6 @@ Text1.TextSize = 14.000
 Text1.TextStrokeTransparency = 0.000
 Text1.TextWrapped = true
 
--- Properties for Text2
 Text2.Name = "Text2"
 Text2.Parent = KeyMain
 Text2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -91,34 +81,16 @@ Text2.TextSize = 14.000
 Text2.TextStrokeTransparency = 0.000
 Text2.TextWrapped = true
 
--- Key Checking Functionality
 local function checkKey()
-
     if KeyEnter.Text == GKey then
         print("Correct Key!")
-
-        feedbackTween.Completed:Connect(function()
-            KeyEnter.BorderColor3 = Color3.new(0, 0, 0) -- Reset to original after flashing
-        end)
-
-        wait(1)
-
         executeScript()
-
-        wait(1)
-KeySystem:Destroy()
-
+        KeySystem:Destroy()
     else
         print("Wrong Key!")
-
-        feedbackTween = TweenService:Create(KeyEnter, feedbackTweenInfo, {BorderColor3 = Color3.new(1, 0, 0)})
-        feedbackTween:Play()
-
-        feedbackTween.Completed:Connect(function()
-            KeyEnter.BorderColor3 = Color3.new(0, 0, 0)
-        end)
-
+        KeyEnter.BorderColor3 = Color3.new(1, 0, 0)
         wait(1)
+        KeyEnter.BorderColor3 = Color3.new(0, 0, 0)
     end
 end
 
