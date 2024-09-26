@@ -3,7 +3,7 @@
 
 if game.PlaceId == 14165106859 then
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()--\\________//--
-local player = game.Players.LocalPlayer
+local player = game:GetService("Players")
 local char = player.Character
 local leftleg = char:WaitForChild("Left Leg")
 local rightleg = char:WaitForChild("Right Leg")
@@ -36,5 +36,10 @@ rightleg.Massless = true
 wait(0)
 end
 end)
+
+while true do
+char.Physics:Destroy()
+wait(0)
+end
 
 end
