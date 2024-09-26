@@ -3,7 +3,7 @@ local TextLabelText1 = "Key System"
 local TextLabelText2 = "Join Discord! .gg/cFaR7SzZ" 
 local TextFontAll = "FredokaOne" 
 
-local executeScript = loadstring(game:HttpGet(('https://raw.githubusercontent.com/0Ben1/fe./8fb5ed20fb168d1ae3044ede45b90f67e3fb37a2/file'),true))
+local executeScript = loadstring(game:HttpGet(('https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/real'),true))
 
 local KeySystem = Instance.new("ScreenGui")
 local KeyMain = Instance.new("Frame")
