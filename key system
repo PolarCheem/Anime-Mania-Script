@@ -91,40 +91,11 @@ Text2.TextSize = 14.000
 Text2.TextStrokeTransparency = 0.000
 Text2.TextWrapped = true
 
--- Fade in function
-KeyMain.BackgroundTransparency = 1
-Text1.TextTransparency = 1
-Text2.TextTransparency = 1
-KeyEnter.BackgroundTransparency = 1
-
--- Tween Creation for Fade-In
-local fadeInInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-local KeyMainGoalsFadeIn = { BackgroundTransparency = 0 }
-local KeyMainTweenFadeIn = TweenService:Create(KeyMain, fadeInInfo, KeyMainGoalsFadeIn)
-
-local textGoalsFadeIn = { TextTransparency = 0 }
-local Text1TweenFadeIn = TweenService:Create(Text1, fadeInInfo, textGoalsFadeIn)
-local Text2TweenFadeIn = TweenService:Create(Text2, fadeInInfo, textGoalsFadeIn)
-
-local KeyEnterGoalsFadeIn = { BackgroundTransparency = 0.75 }
-local KeyEnterTweenFadeIn = TweenService:Create(KeyEnter, fadeInInfo, KeyEnterGoalsFadeIn)
-
--- Play the fade-in Tweens
-KeyMainTweenFadeIn:Play()
-Text1TweenFadeIn:Play()
-Text2TweenFadeIn:Play()
-KeyEnterTweenFadeIn:Play()
-
 -- Key Checking Functionality
 local function checkKey()
-    local feedbackTweenInfo = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-    local feedbackTween
 
     if KeyEnter.Text == GKey then
         print("Correct Key!")
-        
-        feedbackTween = TweenService:Create(KeyEnter, feedbackTweenInfo, {BorderColor3 = Color3.new(0, 1, 0)})
-        feedbackTween:Play()
 
         feedbackTween.Completed:Connect(function()
             KeyEnter.BorderColor3 = Color3.new(0, 0, 0) -- Reset to original after flashing
@@ -134,21 +105,8 @@ local function checkKey()
 
         executeScript()
 
-        local fadeOutInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-        local fadeOutGoals = { BackgroundTransparency = 1 }
-        local KeyMainFadeOut = TweenService:Create(KeyMain, fadeOutInfo, fadeOutGoals)
-        local Text1FadeOut = TweenService:Create(Text1, fadeOutInfo, { TextTransparency = 1 })
-        local Text2FadeOut = TweenService:Create(Text2, fadeOutInfo, { TextTransparency = 1 })
-        local KeyEnterFadeOut = TweenService:Create(KeyEnter, fadeOutInfo, { BackgroundTransparency = 1 })
-
-        KeyMainFadeOut:Play()
-        Text1FadeOut:Play()
-        Text2FadeOut:Play()
-        KeyEnterFadeOut:Play()
-
-        KeyMainFadeOut.Completed:Connect(function()
-            KeySystem:Destroy()
-        end)
+        wait(1)
+KeySystem:Destroy()
 
     else
         print("Wrong Key!")
