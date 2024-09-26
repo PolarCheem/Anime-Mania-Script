@@ -574,7 +574,7 @@ local customSize = 5
 
 local function checkProximity()
     while true do
-        task.wait(0.5) 
+        task.wait(0) 
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
                 local distanceToChest = (part.Position - chest.Position).Magnitude  
