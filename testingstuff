@@ -51,7 +51,6 @@ local function reachBalls()
     end
 end
 
--- Mouse event connections
 mouse.KeyDown:Connect(function()
     if _G.Enabled then
         reachBalls()
@@ -99,6 +98,7 @@ local Section = MainTab:CreateSection("Reach")
 local Button = MainTab:CreateButton({
     Name = "Reach (WIP Bruh)",
     Callback = function()
-        Reach()
+        touchBall()
+				reachBalls()
     end,
 })
