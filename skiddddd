@@ -101,7 +101,7 @@ LegTab:toggle("Reach Toggle", false, function(v)
     checkLegs()
 end)
 
-LegTab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
+LegTab:input("Distance (Legs)", "Enter distance for legs here...", true, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         distanceThreshold = num 
@@ -113,10 +113,22 @@ ArmTab:toggle("Reach Toggle", false, function(v)
     checkArms()
 end)
 
-ArmTab:input("Distance (Arms)", "Enter distance for legs here...", true, function(v)
-    local num2 = tonumber(v)
-    if num2 and num2 > 0 then
+ArmTab:input("Distance (Arms)", "Enter distance for Arms here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
         ArmdistanceThreshold = num 
+    end
+end)
+
+ChestTab:toggle("Reach Toggle", false, function(v)
+    chestreach = v  
+    checkChest()
+end)
+
+ChestTab:input("Distance (Chest)", "Enter distance for Chest here...", true, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ChestdistanceThreshold = num 
     end
 end)
 
