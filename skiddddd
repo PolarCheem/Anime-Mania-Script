@@ -1,14 +1,15 @@
--- Library
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Niagra.paid", "TRS")
-local playertab = win:tab("Player", true)
+local LegTab = win:tab("Legs", true)
+local ArmTab = win:tab("Arms", false)
+local HeadTab = win:tab("Legs", false)
+local ChestTab = win:tab("Chest", true)
 local cred = win:tab("Credit", false)
 
--- Variables
 local distanceThreshold = 1  
-local chestDistanceThreshold = 1  
-local headDistanceThreshold = 1  
-local armDistanceThreshold = 1  
+local ArmdistanceThreshold = 1  
+local HeaddistanceThreshold = 1
+local ChestdistanceThreshold = 1  
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local leftLeg = character:WaitForChild("Left Leg")
@@ -18,13 +19,12 @@ local leftArm = character:FindFirstChild("Left Arm")
 local rightArm = character:FindFirstChild("Right Arm")  
 local head = character:FindFirstChild("Head")  
 
--- Locals
-local speed = false
-local customSize = 5
+local legreach = false
+local armreach = false
 
 local function checkLegs()
-    while speed do
-        task.wait(0.5) 
+    while legreach do
+        task.wait(0.25)
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
                 local distanceToLeftLeg = (part.Position - leftLeg.Position).Magnitude
@@ -44,6 +44,28 @@ local function checkLegs()
     end
 end
 
+local function checkArms()
+    while legreach do
+        task.wait(0.25)
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToLeftArm = (part.Position - leftLeg.Position).Magnitude
+                local distanceToRightArm = (part.Position - rightLeg.Position).Magnitude
+
+                if distanceToLeftArm <= ArmdistanceThreshold then
+                    firetouchinterest(leftArm, part, 0) 
+                    firetouchinterest(leftArm, part, 1) 
+                end
+                
+                if distanceToRightLeg <= distanceThreshold then
+                    firetouchinterest(rightArm, part, 0) 
+                    firetouchinterest(rightArm, part, 1) 
+                end
+            end
+        end
+    end
+end
+
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg") 
     rightLeg = character:FindFirstChild("Right Leg") 
@@ -56,24 +78,29 @@ end
 player.CharacterAdded:Connect(setupCharacter)
 setupCharacter(character)
 
--- UI Elements
-playertab:label("Enjoy")
-
-playertab:toggle("Reach Toggle", false, function(v)
-    speed = v  
-		checkLegs()
+LegTab:toggle("Reach Toggle", false, function(v)
+    legreach = v  
+    checkLegs()
 end)
 
-playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
+LegTab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         distanceThreshold = num 
-        print("Distance threshold for legs set to: " .. distanceThreshold)
-    else
-        print("Invalid input. Please enter a valid positive number.")
     end
 end)
 
+ArmTab:toggle("Reach Toggle", false, function(v)
+    armreach = v  
+    checkArms()
+end)
+
+ArmTab:input("Distance (Arms)", "Enter distance for legs here...", true, function(v)
+    local num2 = tonumber(v)
+    if num2 and num2 > 0 then
+        ArmdistanceThreshold = num 
+    end
+end)
 
 cred:label("Made By ono101")
 cred:label("Ui by ShitLib")
