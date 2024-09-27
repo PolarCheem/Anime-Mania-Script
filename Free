@@ -79,6 +79,66 @@ end
 
 if game.PlaceId == 10937521050 then
 
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local leftleg = char:WaitForChild("Left Leg")
+local rightleg = char:WaitForChild("Right Leg")
+local bigfoot = false
+local footSize = Vector3.new(2, 1, 2)
+local footTransparency = 0
+local footTrans = false
+
+player.PlayerGui.client.Disabled = true
+
+local win = lib:Create("Freemium","MPS Classic")
+local tab1 = win:tab("Leg",true)
+
+tab1:toggle("Bigfoot Toggle", false, function(v)
+    bigfoot = v
+    if bigfoot then
+        leftLeg.Size = footSize
+        leftLeg.Massless = true
+        rightLeg.Size = footSize
+        rightLeg.Massless = true
+    else
+        leftLeg.Size = Vector3.new(1, 2, 1)
+        rightLeg.Size = Vector3.new(1, 2, 1)
+    end
+end)
+
+tab1:toggle("Transparency Toggle", false, function(v)
+    footTrans = v
+    if footTrans then
+        leftLeg.Transparency = footTransparency
+        rightLeg.Transparency = footTransparency
+    else
+        leftLeg.Transparency = 0
+        rightLeg.Transparency = 0
+    end
+end)
+
+tab1:input("Foot Size", "Type Size Here ...", false, function(v)
+    local size = tonumber(v)
+    if size then
+        footSize = Vector3.new(size, 2, size)
+        if bigfoot then
+            leftLeg.Size = footSize
+            rightLeg.Size = footSize
+        end
+    end
+end)
+
+tab1:input("Foot Transparency", "0 - 1 ...", false, function(v)
+    local transparency = tonumber(v)
+    if transparency then
+        footTransparency = transparency
+        if footTrans then
+            leftLeg.Transparency = footTransparency
+            rightLeg.Transparency = footTransparency
+        end
+    end
+end)
 
 
 end
