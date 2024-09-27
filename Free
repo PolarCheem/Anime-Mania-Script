@@ -88,8 +88,7 @@ local bigfoot = false
 local footSize = Vector3.new(2, 1, 2)
 local footTransparency = 0
 local footTrans = false
-local cheat = player.PlayerGui:WaitForChild("client")
-
+local cheat = player.PlayerGui:WaitForChild("LocalScript")
 
 local win = lib:Create("Freemium", "MPS Classic")
 local tab1 = win:tab("Leg", true)
