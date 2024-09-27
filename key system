@@ -1,12 +1,13 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Key system","Get Key")
 local dc = "https://discord.gg/qfAf4yc7yd"
+local system = game.CoreGui:WaitForChild("Key system")
 
 local sf_key = "NIAGRAONTOP"
 getgenv.KeyInput = "string"
 
 function Destroy()
-print("wow")
+system:Destroy()
 end
 
 function CheckKey()
