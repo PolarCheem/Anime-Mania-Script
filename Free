@@ -1,6 +1,7 @@
 -- Classic soccer source
 
 if game.PlaceId == 14165106859 then
+
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
@@ -8,8 +9,8 @@ local leftLeg = char:WaitForChild("Left Leg")
 local rightLeg = char:WaitForChild("Right Leg")
 local bigfoot = false
 local footSize = Vector3.new(2, 1, 2)
-local foottransparency = 0
-local foottrans = false
+local footTransparency = 0
+local footTrans = false
 
 local win = lib:Create("Freemium", "Classic Soccer")
 local tab1 = win:tab("Big Foot", true)
@@ -42,10 +43,10 @@ tab1:toggle("Bigfoot Toggle", false, function(v)
 end)
 
 tab1:toggle("Transparency Toggle", false, function(v)
-    foottrans = v
-    if foottrans then
-        leftLeg.Transparency = foottransparency
-        rightLeg.Transparency = foottransparency
+    footTrans = v
+    if footTrans then
+        leftLeg.Transparency = footTransparency
+        rightLeg.Transparency = footTransparency
     else
         leftLeg.Transparency = 0
         rightLeg.Transparency = 0
@@ -64,12 +65,12 @@ tab1:input("Foot Size", "Type Size Here ...", false, function(v)
 end)
 
 tab1:input("Foot Transparency", "0 - 1 ...", false, function(v)
-    local size = tonumber(v)
-    if size then
-        foottransparency = size
-        if foottrans then
-            leftLeg.Transparency = footSize
-            rightLeg.Transparency = footSize
+    local transparency = tonumber(v)
+    if transparency then
+        footTransparency = transparency
+        if footTrans then
+            leftLeg.Transparency = footTransparency
+            rightLeg.Transparency = footTransparency
         end
     end
 end)
