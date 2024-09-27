@@ -11,7 +11,9 @@ end
 
 function CheckKey()
 if sf_key == KeyInput then
-print("worked")
+Destroy()
+task.wait(2)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/Free"))()
 else
 game.Players.LocalPlayer:Kick("Incorrect key")
 end
