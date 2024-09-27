@@ -3,7 +3,7 @@ local win = lib:Create("Niagra.paid", "TRS")
 local LegTab = win:tab("Legs", true)
 local ArmTab = win:tab("Arms", false)
 local HeadTab = win:tab("Legs", false)
-local ChestTab = win:tab("Chest", true)
+local ChestTab = win:tab("Chest", false)
 local cred = win:tab("Credit", false)
 
 local distanceThreshold = 1  
@@ -21,6 +21,8 @@ local head = character:FindFirstChild("Head")
 
 local legreach = false
 local armreach = false
+local chestreach = false
+local headreach = false
 
 local function checkLegs()
     while legreach do
@@ -49,17 +51,33 @@ local function checkArms()
         task.wait(0.25)
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
-                local distanceToLeftArm = (part.Position - leftLeg.Position).Magnitude
-                local distanceToRightArm = (part.Position - rightLeg.Position).Magnitude
+                local distanceToLeftArm = (part.Position - leftArm.Position).Magnitude
+                local distanceToRightArm = (part.Position - rightArm.Position).Magnitude
 
                 if distanceToLeftArm <= ArmdistanceThreshold then
                     firetouchinterest(leftArm, part, 0) 
                     firetouchinterest(leftArm, part, 1) 
                 end
                 
-                if distanceToRightLeg <= distanceThreshold then
+                if distanceToRightLeg <= ArmdistanceThreshold then
                     firetouchinterest(rightArm, part, 0) 
                     firetouchinterest(rightArm, part, 1) 
+                end
+            end
+        end
+    end
+end
+
+local function checkChest()
+    while chestreach do
+        task.wait(0.25)
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToChest = (part.Position - chest.Position).Magnitude
+
+                if distanceToChest <= ChestdistanceThreshold then
+                    firetouchinterest(chest, part, 0) 
+                    firetouchinterest(chest, part, 1) 
                 end
             end
         end
