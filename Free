@@ -89,7 +89,9 @@ local footSize = Vector3.new(2, 1, 2)
 local footTransparency = 0
 local footTrans = false
 
+function DisableAnti()
 player.PlayerGui.client.Disabled = true
+end
 
 local win = lib:Create("Freemium", "MPS Classic")
 local tab1 = win:tab("Leg", true)
@@ -139,6 +141,6 @@ tab1:input("Foot Transparency", "0 - 1 ...", false, function(v)
         end
     end
 end)
-
+DisableAnti()
 
 end
