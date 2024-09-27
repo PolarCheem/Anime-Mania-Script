@@ -2,7 +2,7 @@ local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/
 local win = lib:Create("Niagra.paid", "TRS")
 local LegTab = win:tab("Legs", true)
 local ArmTab = win:tab("Arms", false)
-local HeadTab = win:tab("Legs", false)
+local HeadTab = win:tab("Head", false)
 local ChestTab = win:tab("Chest", false)
 local cred = win:tab("Credit", false)
 
@@ -47,7 +47,7 @@ local function checkLegs()
 end
 
 local function checkArms()
-    while legreach do
+    while armreach do
         task.wait(0.25)
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
@@ -84,6 +84,22 @@ local function checkChest()
     end
 end
 
+local function checkHead()
+    while headreach do
+        task.wait(0.25)
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                local distanceToHead = (part.Position - head.Position).Magnitude
+
+                if distanceToHead <= HeaddistanceThreshold then
+                    firetouchinterest(head, part, 0) 
+                    firetouchinterest(head, part, 1) 
+                end
+            end
+        end
+    end
+end
+
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg") 
     rightLeg = character:FindFirstChild("Right Leg") 
@@ -101,7 +117,7 @@ LegTab:toggle("Reach Toggle", false, function(v)
     checkLegs()
 end)
 
-LegTab:input("Distance (Legs)", "Enter distance for legs here...", true, function(v)
+LegTab:input("Distance (Legs)", "Enter distance for legs here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         distanceThreshold = num 
@@ -113,7 +129,7 @@ ArmTab:toggle("Reach Toggle", false, function(v)
     checkArms()
 end)
 
-ArmTab:input("Distance (Arms)", "Enter distance for Arms here...", true, function(v)
+ArmTab:input("Distance (Arms)", "Enter distance for Arms here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         ArmdistanceThreshold = num 
@@ -125,10 +141,22 @@ ChestTab:toggle("Reach Toggle", false, function(v)
     checkChest()
 end)
 
-ChestTab:input("Distance (Chest)", "Enter distance for Chest here...", true, function(v)
+ChestTab:input("Distance (Chest)", "Enter distance for Chest here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
         ChestdistanceThreshold = num 
+    end
+end)
+
+HeadTab:toggle("Reach Toggle", false, function(v)
+    headreach = v  
+    checkHead()
+end)
+
+HeadTab:input("Distance (Head)", "Enter distance for Head here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        HeaddistanceThreshold = num 
     end
 end)
 
