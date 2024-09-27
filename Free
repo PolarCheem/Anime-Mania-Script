@@ -4,11 +4,11 @@
 if game.PlaceId == 14165106859 then
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()--\\________//--
 local player = game.Players.LocalPlayer
-local char = player.Character
+local char = player.Character or player.CharacterAdded:Wait()
 local leftleg = char:WaitForChild("Left Leg")
 local rightleg = char:WaitForChild("Right Leg")
 local bigfoot = false
-local FootSize = 2
+local footSize = 2
 
 --\\________//--
 
@@ -26,22 +26,41 @@ local tab1 = win:tab("Big Foot",true)
 
 --\\______//--
 
+local function disableAnti(anti)
+    if anti and anti:IsA("LocalScript") then
+        anti.Disabled = true
+    end
+end
+
+local anti1 = char:FindFirstChild("Physics")
+local anti2 = player.Backpack:FindFirstChild("Client")
+local anti3 = player.Backpack:FindFirstChild("AntiExploitMod")
+
+disableAnti(anti1)
+disableAnti(anti2)
+disableAnti(anti3)
+
 tab1:toggle("Bigfoot Toggle",false,function(v)
 bigfoot = v
-char.Physics:Destroy()
-player.Backpack.Client.Disabled = true
-player.Backpack.AntiExploitMod.Disabled = true
-if bigfoot then
-leftleg.Size = Vector3.new(FootSize)
-leftleg.Massless = true
-rightleg.Size = Vector3.new(FootSize)
-rightleg.Massless = true
-wait(0)
+  if bigFoot then
+        leftLeg.Size = footSize
+        leftLeg.Massless = true
+        rightLeg.Size = footSize
+        rightLeg.Massless = true
+    else
+        leftLeg.Size = Vector3.new(1, 1, 1)
+        rightLeg.Size = Vector3.new(1, 1, 1)
+    wait(0)
 end
 end)
 
 tab1:input("Foot Size","Type Size Here ...",false,function(v)
-FootSize = v
+local size = tonumber(v)
+    if size then
+        footSize = Vector3.new(size, 2, size)
+    end
 end)
+
+
 
 end
