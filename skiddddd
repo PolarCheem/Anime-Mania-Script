@@ -22,37 +22,13 @@ local head = character:FindFirstChild("Head")
 local speed = false
 local customSize = 5
 
-local function checkProximity()
-    while true do
+local function checkLegs()
+    while speed do
         task.wait(0.5) 
         for _, part in ipairs(workspace:GetDescendants()) do
             if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
-                local distanceToChest = (part.Position - chest.Position).Magnitude  
-                local distanceToLeftArm = (part.Position - leftArm.Position).Magnitude  
-                local distanceToHead = (part.Position - head.Position).Magnitude  
-                local distanceToRightArm = (part.Position - rightArm.Position).Magnitude  
                 local distanceToLeftLeg = (part.Position - leftLeg.Position).Magnitude
                 local distanceToRightLeg = (part.Position - rightLeg.Position).Magnitude
-
-                if distanceToChest <= chestDistanceThreshold then
-                    firetouchinterest(chest, part, 0) 
-                    firetouchinterest(chest, part, 1) 
-                end
-
-                if distanceToHead <= headDistanceThreshold then
-                    firetouchinterest(head, part, 0) 
-                    firetouchinterest(head, part, 1) 
-                end
-                
-                if distanceToLeftArm <= armDistanceThreshold then
-                    firetouchinterest(leftArm, part, 0) 
-                    firetouchinterest(leftArm, part, 1) 
-                end
-                
-                if distanceToRightArm <= armDistanceThreshold then
-                    firetouchinterest(rightArm, part, 0) 
-                    firetouchinterest(rightArm, part, 1) 
-                end
 
                 if distanceToLeftLeg <= distanceThreshold then
                     firetouchinterest(leftLeg, part, 0) 
@@ -85,6 +61,7 @@ playertab:label("Enjoy")
 
 playertab:toggle("Reach Toggle", false, function(v)
     speed = v  
+		checkLegs()
 end)
 
 playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true, function(v)
@@ -97,37 +74,6 @@ playertab:input("Distance Input (Legs)", "Enter distance for legs here...", true
     end
 end)
 
-playertab:input("Distance Input (Chest)", "Enter distance for chest here...", true, function(v)
-    local num = tonumber(v)
-    if num and num > 0 then
-        chestDistanceThreshold = num 
-        print("Distance threshold for chest set to: " .. chestDistanceThreshold)
-    else
-        print("Invalid input. Please enter a valid positive number.")
-    end
-end)
-
-playertab:input("Distance Input (Arms)", "Enter distance for arms here...", true, function(v)
-    local num = tonumber(v)
-    if num and num > 0 then
-        armDistanceThreshold = num 
-        print("Distance threshold for arms set to: " .. armDistanceThreshold)
-    else
-        print("Invalid input. Please enter a valid positive number.")
-    end
-end)
-
-playertab:input("Distance Input (Head)", "Enter distance for head here...", true, function(v)
-    local num = tonumber(v)
-    if num and num > 0 then
-        headDistanceThreshold = num 
-        print("Distance threshold for head set to: " .. headDistanceThreshold)
-    else
-        print("Invalid input. Please enter a valid positive number.")
-    end
-end)
 
 cred:label("Made By ono101")
 cred:label("Ui by ShitLib")
-
-checkProximity()
