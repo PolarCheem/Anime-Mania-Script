@@ -3,7 +3,7 @@
 
 if game.PlaceId == 14165106859 then
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()--\\________//--
-local player = game:GetService("Players")
+local players = game:GetService("Players")
 local char = player.LocalPlayer.Character
 local leftleg = char:WaitForChild("Left Leg")
 local rightleg = char:WaitForChild("Right Leg")
@@ -11,11 +11,6 @@ local bigfoot = false
 local FootSize = 2
 
 --\\________//--
-
-while true do
-char.Physics:Destroy()
-wait(0)
-end
 
 --  ________
 --// Window \\--
@@ -33,7 +28,9 @@ local tab1 = win:tab("Big Foot",true)
 
 tab1:toggle("Bigfoot Toggle",false,function(v)
 bigfoot = v
-
+char.Physics:Destroy()
+players.LocalPlayer.Backpack.Client.Disabled = true
+players.LocalPlayer.Backpack.AntiExploitMod.Disabled = true
 if bigfoot then
 leftleg.Size = Vector3.new(FootSize)
 leftleg.Massless = true
