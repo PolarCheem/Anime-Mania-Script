@@ -1,30 +1,18 @@
---________ 
---// Source \\--
+-- Classic soccer source
 
 if game.PlaceId == 14165106859 then
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()--\\________//--
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
-local leftleg = char:WaitForChild("Left Leg")
-local rightleg = char:WaitForChild("Right Leg")
+local leftLeg = char:WaitForChild("Left Leg")
+local rightLeg = char:WaitForChild("Right Leg")
 local bigfoot = false
-local footSize = 2
+local footSize = Vector3.new(2, 1, 2)
+local foottransparency = 0
+local foottrans = false
 
---\\________//--
-
---  ________
---// Window \\--
-
-local win = lib:Create("Freemium","Classic Soccer")
-
---\\________//--
-
---  ______
---// Tabs \\--
-
-local tab1 = win:tab("Big Foot",true)
-
---\\______//--
+local win = lib:Create("Freemium", "Classic Soccer")
+local tab1 = win:tab("Big Foot", true)
 
 local function disableAnti(anti)
     if anti and anti:IsA("LocalScript") then
@@ -40,27 +28,50 @@ disableAnti(anti1)
 disableAnti(anti2)
 disableAnti(anti3)
 
-tab1:toggle("Bigfoot Toggle",false,function(v)
-bigfoot = v
-  if bigFoot then
+tab1:toggle("Bigfoot Toggle", false, function(v)
+    bigfoot = v
+    if bigfoot then
         leftLeg.Size = footSize
         leftLeg.Massless = true
         rightLeg.Size = footSize
         rightLeg.Massless = true
     else
-        leftLeg.Size = Vector3.new(1, 1, 1)
-        rightLeg.Size = Vector3.new(1, 1, 1)
-    wait(0)
-end
-end)
-
-tab1:input("Foot Size","Type Size Here ...",false,function(v)
-local size = tonumber(v)
-    if size then
-        footSize = Vector3.new(size, 2, size)
+        leftLeg.Size = Vector3.new(1, 2, 1)
+        rightLeg.Size = Vector3.new(1, 2, 1)
     end
 end)
 
+tab1:toggle("Transparency Toggle", false, function(v)
+    foottrans = v
+    if foottrans then
+        leftLeg.Transparency = foottransparency
+        rightLeg.Transparency = foottransparency
+    else
+        leftLeg.Transparency = 0
+        rightLeg.Transparency = 0
+    end
+end)
 
+tab1:input("Foot Size", "Type Size Here ...", false, function(v)
+    local size = tonumber(v)
+    if size then
+        footSize = Vector3.new(size, 2, size)
+        if bigfoot then
+            leftLeg.Size = footSize
+            rightLeg.Size = footSize
+        end
+    end
+end)
+
+tab1:input("Foot Transparency", "0 - 1 ...", false, function(v)
+    local size = tonumber(v)
+    if size then
+        foottransparency = size
+        if foottrans then
+            leftLeg.Transparency = footSize
+            rightLeg.Transparency = footSize
+        end
+    end
+end)
 
 end
