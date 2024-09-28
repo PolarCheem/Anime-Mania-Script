@@ -147,21 +147,33 @@ end
 
 -- tps street soccer
 
-if game.PlaceId == 335760407 then
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Freemium", "TPS Street Soccer")
 local tab1 = win:tab("Leg", true)
+local tab2 = win:tab("Arm", false)
+local tab3 = win:tab("Head", false)
+local tab4 = win:tab("Chest", false)
 
 local player = game.Players.LocalPlayer
 local legreach = false
 local LegdistanceThreshold = 1
-local leftLeg, rightLeg, ball
+local armreach = false
+local LegdistanceThreshold = 1
+local headreach = false
+local HeaddistanceThreshold = 1
+local chest reach = false
+local ChestdistanceThreshold = 1
+local leftLeg, rightLeg, ball, head, chest, leftArm, rightArm
 
 local function setupCharacter()
     local char = player.Character or player.CharacterAdded:Wait()
     leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
     rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
     ball = workspace.TPSSystem.TPS
+		rightArm = char:WaitForChild("Right Arm") or char.RightHand
+		leftArm = char:WaitForChild("Left Arm") or char.LeftHand
+		head = char.Head
+		chest = char.Torso or char:WaitForChild("UpperTorso")
 end
 
 local function checkLegs()
@@ -182,6 +194,48 @@ local function checkLegs()
     end
 end
 
+local function checkArms()
+    while armreach do
+        task.wait(0)
+        local distanceToLeftArm = (ball.Position - leftArm.Position).Magnitude
+        local distanceToRightArm = (ball.Position - rightArm.Position).Magnitude
+
+        if distanceToLeftArm <= ArmdistanceThreshold then
+            firetouchinterest(leftArm, ball, 0) 
+            firetouchinterest(leftArm, ball, 1) 
+        end
+        
+        if distanceToRightArm <= ArmdistanceThreshold then
+            firetouchinterest(rightArm, ball, 0) 
+            firetouchinterest(rightArm, ball, 1) 
+        end
+    end
+end
+
+local function checkHead()
+    while headreach do
+        task.wait(0)
+        local distanceToHead = (ball.Position - head.Position).Magnitude
+   
+        if distanceToHead <= HeaddistanceThreshold then
+            firetouchinterest(head, ball, 0) 
+            firetouchinterest(head, ball, 1) 
+        end
+    end
+end
+
+local function checkChest()
+    while chestreach do
+        task.wait(0)
+        local distanceToChest = (ball.Position - chest.Position).Magnitude
+   
+        if distanceToChest <= ChestdistanceThreshold then
+            firetouchinterest(chest, ball, 0) 
+            firetouchinterest(chest, ball, 1) 
+        end
+    end
+end
+
 tab1:toggle("Leg Toggle", false, function(v)
     legreach = v
     if v then
@@ -196,10 +250,78 @@ tab1:input("Distance (Legs)", "Enter distance for legs here...", false, function
     end
 end)
 
+tab2:toggle("Arms Toggle", false, function(v)
+    armreach = v
+    if v then
+        checkArms()
+    end
+end)
+
+tab2:input("Distance (Arms)", "Enter distance for arms here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ArmdistanceThreshold = num 
+    end
+end)
+
+tab3:toggle("Head Toggle", false, function(v)
+    headreach = v
+    if v then
+        checkHead()
+    end
+end)
+
+tab3:input("Distance (Head)", "Enter distance for head here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        HeaddistanceThreshold = num 
+    end
+end)
+
+tab4:toggle("Chest Toggle", false, function(v)
+    chestreach = v
+    if v then
+        checkChest()
+    end
+end)
+
+tab4:input("Distance (Chest)", "Enter distance for chest here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ChestdistanceThreshold = num 
+    end
+end)
+
 setupCharacter()
 player.CharacterAdded:Connect(function()
     setupCharacter()
+    if legreach then
+        checkLegs()
+    end
 end)
 
+setupCharacter()
+player.CharacterAdded:Connect(function()
+    setupCharacter()
+    if armreach then
+        checkArms()
+    end
+end)
+
+setupCharacter()
+player.CharacterAdded:Connect(function()
+    setupCharacter()
+    if headreach then
+        checkHead()
+    end
+end)
+
+setupCharacter()
+player.CharacterAdded:Connect(function()
+    setupCharacter()
+    if chestreach then
+        checkChest()
+    end
+end)
 
 end
