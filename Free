@@ -160,7 +160,33 @@ local leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
 local rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
 local leftArm = char:WaitForChild("Left Arm") or char:WaitForChild("LeftHand")
 local rightArm = char:WaitForChild("Right Arm") or char:WaitForChild("RightHand")
+local ball = workspace.TPSSystem.TPS
+local LegdistanceThreshold = 1
 
+local legreach = false
 
+local function checkLegs()
+    while legreach do
+        task.wait(0)
+                local distanceToLeftLeg = (ball.Position - leftLeg.Position).Magnitude
+                local distanceToRightLeg = (ball.Position - rightLeg.Position).Magnitude
+
+                if distanceToLeftLeg <= LegdistanceThreshold then
+                    firetouchinterest(leftLeg, ball, 0) 
+                    firetouchinterest(leftLeg, ball, 1) 
+                end
+                
+                if distanceToRightLeg <= distanceThreshold then
+                    firetouchinterest(rightLeg, part, 0) 
+                    firetouchinterest(rightLeg, part, 1) 
+                end
+            end
+        end
+    end
+
+a:toggle("Test Toggle",true,function(v)
+legreach = v
+checkLegs()
+end)
 
 end
