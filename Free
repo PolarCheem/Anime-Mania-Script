@@ -148,20 +148,21 @@ end
 -- tps street soccer
 
 if game.PlaceId == 335760407 then
--- libary
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
-local win = lib:Create("Freemium","TPS Street Soccer")
-local tab1 = win:tab("Leg",true)
+local win = lib:Create("Freemium", "TPS Street Soccer")
+local tab1 = win:tab("Leg", true)
 
--- locals
 local player = game.Players.LocalPlayer
-local char = player.Character or player.CharacterAdded:Wait()
-local leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
-local rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
-local ball = workspace.TPSSystem.TPS
-local LegdistanceThreshold = 1
-
 local legreach = false
+local LegdistanceThreshold = 1
+local leftLeg, rightLeg, ball
+
+local function setupCharacter()
+    local char = player.Character or player.CharacterAdded:Wait()
+    leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
+    rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
+    ball = workspace.TPSSystem.TPS
+end
 
 local function checkLegs()
     while legreach do
@@ -194,5 +195,11 @@ tab1:input("Distance (Legs)", "Enter distance for legs here...", false, function
         LegdistanceThreshold = num 
     end
 end)
+
+setupCharacter()
+player.CharacterAdded:Connect(function()
+    setupCharacter()
+end)
+
 
 end
