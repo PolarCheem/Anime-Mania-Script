@@ -39,18 +39,6 @@ local function checkParts(bodyPart, distanceThreshold)
     end
 end
 
-local function checkLegs()
-    while reachStatus.leg do
-        task.wait(0.25)
-        for _, part in ipairs(workspace:GetDescendants()) do
-            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
-                handlePartInteraction(leftLeg, part, LegDistanceThreshold)
-                handlePartInteraction(rightLeg, part, LegDistanceThreshold)
-            end
-        end
-    end
-end
-
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg")
     rightLeg = character:FindFirstChild("Right Leg")
@@ -66,8 +54,12 @@ setupCharacter(character)
 LegTab:toggle("Reach Toggle", false, function(v)
     reachStatus.leg = v
     if v then
-        spawn(checkParts, leftLeg, LegDistanceThreshold)
-        spawn(checkParts, rightLeg, LegDistanceThreshold)
+        spawn(function()
+            checkParts(leftLeg, LegDistanceThreshold)
+        end)
+        spawn(function()
+            checkParts(rightLeg, LegDistanceThreshold)
+        end)
     end
 end)
 
