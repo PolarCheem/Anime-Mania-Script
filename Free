@@ -158,10 +158,10 @@ local player = game.Players.LocalPlayer
 local legreach = false
 local LegdistanceThreshold = 1
 local armreach = false
-local LegdistanceThreshold = 1
+local ArmdistanceThreshold = 1
 local headreach = false
 local HeaddistanceThreshold = 1
-local chest reach = false
+local chestreach = false
 local ChestdistanceThreshold = 1
 local leftLeg, rightLeg, ball, head, chest, leftArm, rightArm
 
@@ -170,10 +170,10 @@ local function setupCharacter()
     leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
     rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
     ball = workspace.TPSSystem.TPS
-		rightArm = char:WaitForChild("Right Arm") or char.RightHand
-		leftArm = char:WaitForChild("Left Arm") or char.LeftHand
-		head = char.Head
-		chest = char.Torso or char:WaitForChild("UpperTorso")
+    rightArm = char:WaitForChild("Right Arm") or char:WaitForChild("RightHand")
+    leftArm = char:WaitForChild("Left Arm") or char:WaitForChild("LeftHand")
+    head = char:WaitForChild("Head")
+    chest = char:WaitForChild("Torso") or char:WaitForChild("UpperTorso")
 end
 
 local function checkLegs()
@@ -298,30 +298,16 @@ player.CharacterAdded:Connect(function()
     if legreach then
         checkLegs()
     end
-end)
-
-setupCharacter()
-player.CharacterAdded:Connect(function()
-    setupCharacter()
     if armreach then
         checkArms()
     end
-end)
-
-setupCharacter()
-player.CharacterAdded:Connect(function()
-    setupCharacter()
     if headreach then
         checkHead()
     end
-end)
-
-setupCharacter()
-player.CharacterAdded:Connect(function()
-    setupCharacter()
     if chestreach then
         checkChest()
     end
 end)
+
 
 end
