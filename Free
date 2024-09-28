@@ -144,3 +144,23 @@ end)
 cheat.Disabled = true
 
 end
+
+-- tps street soccer
+
+if game.PlaceId == 335760407 then
+-- libary
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local win = lib:Create("Freemium","TPS Street Soccer")
+local tab1 = win:tab("Leg",true)
+
+-- locals
+local player = game.Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local leftLeg = char:WaitForChild("Left Leg") or char:WaitForChild("LeftFoot")
+local rightLeg = char:WaitForChild("Right Leg") or char:WaitForChild("RightFoot")
+local leftArm = char:WaitForChild("Left Arm") or char:WaitForChild("LeftHand")
+local rightArm = char:WaitForChild("Right Arm") or char:WaitForChild("RightHand")
+
+
+
+end
