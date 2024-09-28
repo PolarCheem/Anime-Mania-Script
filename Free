@@ -147,7 +147,7 @@ end
 
 -- tps street soccer
 
-if game.PlaceId == 335760407 then or if game.PlaceId == 1597763879 then
+if game.PlaceId == 335760407 then or game.PlaceId == 1597763879 then
 
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
 local win = lib:Create("Freemium", "TPS Street Soccer")
