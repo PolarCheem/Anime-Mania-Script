@@ -1,0 +1,94 @@
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local win = lib:Create("Niagra.paid", "TRS")
+local LegTab = win:tab("Legs", true)
+local ArmTab = win:tab("Arms", false)
+local HeadTab = win:tab("Head", false)
+local ChestTab = win:tab("Chest", false)
+local cred = win:tab("Credit", false)
+
+local distanceThreshold = 1
+local LegdistanceThreshold = 1
+local ArmdistanceThreshold = 1
+local HeaddistanceThreshold = 1
+local ChestdistanceThreshold = 1
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local leftLeg = character:WaitForChild("Left Leg")
+local rightLeg = character:WaitForChild("Right Leg")
+local chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")
+local leftArm = character:FindFirstChild("Left Arm")
+local rightArm = character:FindFirstChild("Right Arm")
+local head = character:FindFirstChild("Head")
+
+local reachStatus = {leg = false, arm = false, chest = false, head = false}
+
+local function handlePartInteraction(bodyPart, part, distanceThreshold)
+    if (part.Position - bodyPart.Position).Magnitude <= distanceThreshold then
+        firetouchinterest(bodyPart, part, 0)
+        firetouchinterest(bodyPart, part, 1)
+    end
+end
+
+local function setupCharacter(character)
+    leftLeg = character:FindFirstChild("Left Leg")
+    rightLeg = character:FindFirstChild("Right Leg")
+    chest = character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso")
+    head = character:FindFirstChild("Head")
+    leftArm = character:FindFirstChild("Left Arm")
+    rightArm = character:FindFirstChild("Right Arm")
+end
+
+player.CharacterAdded:Connect(setupCharacter)
+setupCharacter(character)
+
+LegTab:toggle("Reach Toggle", false, function(v)
+    reachStatus.leg = v
+    if v then checkParts(leftLeg, LegdistanceThreshold, "leg") end
+		if v then checkParts(rightLeg, LegdistanceThreshold, "leg") end
+end)
+
+LegTab:input("Distance (Legs)", "Enter distance for legs here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        LegdistanceThreshold = num
+    end
+end)
+
+ArmTab:toggle("Reach Toggle", false, function(v)
+    reachStatus.arm = v
+    if v then checkParts(leftArm, ArmdistanceThreshold, "arm") end
+end)
+
+ArmTab:input("Distance (Arms)", "Enter distance for Arms here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ArmdistanceThreshold = num
+    end
+end)
+
+ChestTab:toggle("Reach Toggle", false, function(v)
+    reachStatus.chest = v
+    if v then checkParts(chest, ChestdistanceThreshold, "chest") end
+end)
+
+ChestTab:input("Distance (Chest)", "Enter distance for Chest here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        ChestdistanceThreshold = num
+    end
+end)
+
+HeadTab:toggle("Reach Toggle", false, function(v)
+    reachStatus.head = v
+    if v then checkParts(head, HeaddistanceThreshold, "head") end
+end)
+
+HeadTab:input("Distance (Head)", "Enter distance for Head here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        HeaddistanceThreshold = num
+    end
+end)
+
+cred:label("Made By ono101")
+cred:label("Ui by ShitLib")
