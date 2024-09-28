@@ -6,11 +6,10 @@ local HeadTab = win:tab("Head", false)
 local ChestTab = win:tab("Chest", false)
 local cred = win:tab("Credit", false)
 
-local distanceThreshold = 1
-local LegdistanceThreshold = 1
-local ArmdistanceThreshold = 1
-local HeaddistanceThreshold = 1
-local ChestdistanceThreshold = 1
+local LegDistanceThreshold = 1
+local ArmDistanceThreshold = 1
+local HeadDistanceThreshold = 1
+local ChestDistanceThreshold = 1
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local leftLeg = character:WaitForChild("Left Leg")
@@ -29,6 +28,29 @@ local function handlePartInteraction(bodyPart, part, distanceThreshold)
     end
 end
 
+local function checkParts(bodyPart, distanceThreshold)
+    while reachStatus.leg or reachStatus.arm or reachStatus.chest or reachStatus.head do
+        task.wait(0.25)
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                handlePartInteraction(bodyPart, part, distanceThreshold)
+            end
+        end
+    end
+end
+
+local function checkLegs()
+    while reachStatus.leg do
+        task.wait(0.25)
+        for _, part in ipairs(workspace:GetDescendants()) do
+            if part:IsA("Part") and part.BrickColor == BrickColor.new("Institutional white") and part.Size == Vector3.new(2.5, 2.5, 2.5) then
+                handlePartInteraction(leftLeg, part, LegDistanceThreshold)
+                handlePartInteraction(rightLeg, part, LegDistanceThreshold)
+            end
+        end
+    end
+end
+
 local function setupCharacter(character)
     leftLeg = character:FindFirstChild("Left Leg")
     rightLeg = character:FindFirstChild("Right Leg")
@@ -43,50 +65,52 @@ setupCharacter(character)
 
 LegTab:toggle("Reach Toggle", false, function(v)
     reachStatus.leg = v
-    if v then checkParts(leftLeg, LegdistanceThreshold, "leg") end
-		if v then checkParts(rightLeg, LegdistanceThreshold, "leg") end
+    if v then
+        spawn(checkParts, leftLeg, LegDistanceThreshold)
+        spawn(checkParts, rightLeg, LegDistanceThreshold)
+    end
 end)
 
 LegTab:input("Distance (Legs)", "Enter distance for legs here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
-        LegdistanceThreshold = num
+        LegDistanceThreshold = num
     end
 end)
 
 ArmTab:toggle("Reach Toggle", false, function(v)
     reachStatus.arm = v
-    if v then checkParts(leftArm, ArmdistanceThreshold, "arm") end
+    if v then checkParts(leftArm, ArmDistanceThreshold) end
 end)
 
 ArmTab:input("Distance (Arms)", "Enter distance for Arms here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
-        ArmdistanceThreshold = num
+        ArmDistanceThreshold = num
     end
 end)
 
 ChestTab:toggle("Reach Toggle", false, function(v)
     reachStatus.chest = v
-    if v then checkParts(chest, ChestdistanceThreshold, "chest") end
+    if v then checkParts(chest, ChestDistanceThreshold) end
 end)
 
 ChestTab:input("Distance (Chest)", "Enter distance for Chest here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
-        ChestdistanceThreshold = num
+        ChestDistanceThreshold = num
     end
 end)
 
 HeadTab:toggle("Reach Toggle", false, function(v)
     reachStatus.head = v
-    if v then checkParts(head, HeaddistanceThreshold, "head") end
+    if v then checkParts(head, HeadDistanceThreshold) end
 end)
 
 HeadTab:input("Distance (Head)", "Enter distance for Head here...", false, function(v)
     local num = tonumber(v)
     if num and num > 0 then
-        HeaddistanceThreshold = num
+        HeadDistanceThreshold = num
     end
 end)
 
