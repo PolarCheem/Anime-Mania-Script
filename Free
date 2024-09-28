@@ -184,9 +184,16 @@ local function checkLegs()
         end
     end
 
-a:toggle("Test Toggle",true,function(v)
+tab1:toggle("Leg Toggle",false,function(v)
 legreach = v
 checkLegs()
+end)
+
+tab1:input("Distance (Legs)", "Enter distance for legs here...", false, function(v)
+    local num = tonumber(v)
+    if num and num > 0 then
+        LegdistanceThreshold = num 
+    end
 end)
 
 end
