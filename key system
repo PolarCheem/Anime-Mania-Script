@@ -3,7 +3,7 @@ local win = lib:Create("Key system", "Get Key")
 local dc = "https://discord.gg/qfAf4yc7yd"
 local system = game.CoreGui:WaitForChild("Key system")
 
-local sf_key = "FUCKTHEMGRANNYS"
+local sf_key = "PROJECTNIAGRA"
 getgenv().KeyInput = "string"
 
 function Destroy()
