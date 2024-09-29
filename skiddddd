@@ -1,1 +1,8 @@
---ooo
+local lib = loastring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/aaaa"))()
+
+local win = lib:Create("Shit Lib","Game Name")
+local a = win:tab("Hi test",true)
+
+a:dropdown("Select Option", {"Option 1", "Option 2", "Option 3"}, function(selected)
+    print("Selected: " .. selected)
+end)
