@@ -3,7 +3,7 @@ local win = lib:Create("Key system", "Get Key")
 local dc = "https://discord.gg/qfAf4yc7yd"
 local system = game.CoreGui:WaitForChild("Key system")
 
-local sf_key = "STOPLEAVING"
+local sf_key = "lmaoo"
 getgenv().KeyInput = "string"
 
 function Destroy()
@@ -13,8 +13,8 @@ end
 function CheckKey()
     if sf_key == KeyInput then
         Destroy()
-        task.wait(1.5)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/Free"))()
+        task.wait(1)
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/anti"))()
     else
         game.Players.LocalPlayer:Kick("Incorrect key")
     end
