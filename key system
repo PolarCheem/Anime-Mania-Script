@@ -13,7 +13,7 @@ end
 function CheckKey()
     if sf_key == KeyInput then
         Destroy()
-        task.wait(2)
+        task.wait(0.5)
         loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/Free"))()
     else
         game.Players.LocalPlayer:Kick("Incorrect key")
@@ -22,7 +22,7 @@ end
 
 local tab1 = win:tab("Main", true)
 
-tab1:input("Enter key", "Enter Here...", false, function(v)
+tab1:input("Enter key", "...", false, function(v)
     KeyInput = v
 end)
 
