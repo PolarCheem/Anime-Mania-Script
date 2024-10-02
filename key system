@@ -1,4 +1,4 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/laagginq/ui-libraries/main/shit-lib/src.lua"))()
+local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Duck-UI/refs/heads/main/aaa"))()
 local win = lib:Create("Key system", "Get Key")
 local dc = "https://discord.gg/qfAf4yc7yd"
 local system = game.CoreGui:WaitForChild("Key system")
