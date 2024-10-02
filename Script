@@ -1,17 +1,1 @@
-local link = loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Duck-UI/refs/heads/main/hwids"))()
-local HWIDTable = { link }
-local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
-
-local found = false
-
-for i, v in pairs(HWIDTable) do
-    if v:lower() == HWID:lower() then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/real"))()
-        found = true
-        break
-    end
-end
-
-if not found then
-    game.Players.LocalPlayer:Kick("HWID not found.")
-end
+-- allidt
