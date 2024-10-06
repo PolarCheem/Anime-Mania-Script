@@ -5,7 +5,7 @@ while true do
 char.DefHitbox.Size = Vector3.new(20,20,20)
 char.BallControl.Size = Vector3.new(20,20,20)
 extra.PowerBuff.Value = 1000
-extra.SpeedBuff.Value = 1.23
+extra.SpeedBuff.Value = 1.18
 wait(0)
 end
 print("done")
