@@ -2,12 +2,9 @@ local player = game.Players.LocalPlayer
 local char = player.Character
 local extra = char.Extra
 
-while true do
 char.DefHitbox.Size = Vector3.new(20,20,20)
 char.BallControl.Size = Vector3.new(20,20,20)
 extra.PowerBuff.Value = 5
 extra.ControlBuff.Value = 2
-extra.SpeedBuff.Value = 1.3
-wait(5)
-end
+extra.SpeedBuff.Value = 1.15
 print("done")
