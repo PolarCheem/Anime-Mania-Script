@@ -9,14 +9,17 @@ extra.SpeedBuff.Value = 1.18
 wait(0)
 end
 print("done")
-wait(0)
+
+
+
 local player = game.Players.LocalPlayer
 local char = player.Character
 local extra = char.Extra
 while true do
-char.DefHitbox.Size = Vector3.new(10,10,10)
-char.BallControl.Size = Vector3.new(10,10,10)
+char.BallControl.Size = Vector3.new(12,12,12)
 extra.PowerBuff.Value = 1000
+char.ChargeMeter.Value = 100
+char.Stamina.Value = 185
 wait(0)
 end
 extra.SpeedBuff.Value = 1.15
