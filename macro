@@ -19,7 +19,7 @@ while true do
 char.DefHitbox.Size = Vector3.new(10,10,10)
 char.BallControl.Size = Vector3.new(12,12,12)
 char.ChargeMeter.Value = 100
-extra.ControlBuff.Value = 1.3
+extra.ControlBuff.Value = 1.15
 char.Stamina.Value = 195
 wait(0)
 end
