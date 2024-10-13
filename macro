@@ -10,6 +10,32 @@ wait(0)
 end
 print("done")
 
+-- flow
+
+local player = game.Players.LocalPlayer
+local screenGui = player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
+local mobileContainer = screenGui:WaitForChild("MobileContainer")
+local activate = true
+
+for _, obj in ipairs(mobileContainer:GetDescendants()) do
+    if obj:IsA("TextLabel") and obj.Text == "Flow" and obj.Parent:IsA("ImageButton") then
+        obj.Parent.MouseButton1Click:Connect(function()
+            if activate then
+                player.Character.Extra.ControlBuff.Value = 1.3
+                player.Character.Extra.SpeedBuff.Value = 1.3
+                wait(10)
+                player.Character.Extra.ControlBuff.Value = 1
+                player.Character.Extra.SpeedBuff.Value = 1
+                activate = false
+            end
+        end)
+        break
+    end
+end
+
+
+
+-- aaa
 
 
 local player = game.Players.LocalPlayer
