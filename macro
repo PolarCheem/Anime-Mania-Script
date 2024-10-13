@@ -23,8 +23,7 @@ for _, obj in ipairs(mobileContainer:GetDescendants()) do
             
             -- Start applying buffs in a loop for 10 seconds
             for i = 1, 10 do
-                player.Character.Extra.ControlBuff.Value = 1.25
-                player.Character.Extra.SpeedBuff.Value = 1.15
+                player.Character.Extra.SpeedBuff.Value = 1.18
                 wait(1)  -- Wait for 1 second before applying again
             end
             
