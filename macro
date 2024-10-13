@@ -15,23 +15,27 @@ print("done")
 local player = game.Players.LocalPlayer
 local screenGui = player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui")
 local mobileContainer = screenGui:WaitForChild("MobileContainer")
-local activate = true
 
 for _, obj in ipairs(mobileContainer:GetDescendants()) do
     if obj:IsA("TextLabel") and obj.Text == "Flow" and obj.Parent:IsA("ImageButton") then
         obj.Parent.MouseButton1Click:Connect(function()
-            if activate then
-                player.Character.Extra.ControlBuff.Value = 1.3
-                player.Character.Extra.SpeedBuff.Value = 1.3
-                wait(10)
-                player.Character.Extra.ControlBuff.Value = 1
-                player.Character.Extra.SpeedBuff.Value = 1
-                activate = false
+            print("Button clicked")
+            
+            -- Start applying buffs in a loop for 10 seconds
+            for i = 1, 10 do
+                player.Character.Extra.ControlBuff.Value = 1.25
+                player.Character.Extra.SpeedBuff.Value = 1.15
+                wait(1)  -- Wait for 1 second before applying again
             end
+            
+            -- Reset buffs after 10 seconds
+            player.Character.Extra.ControlBuff.Value = 1
+            player.Character.Extra.SpeedBuff.Value = 1
         end)
-        break
     end
 end
+
+
 
 
 
