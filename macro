@@ -49,7 +49,7 @@ char.DefHitbox.Size = Vector3.new(10,10,10)
 char.BallControl.Size = Vector3.new(12,12,12)
 char.ChargeMeter.Value = 100
 extra.ControlBuff.Value = 1.08
-char.Stamina.Value = 195
+char.Stamina.Value = 200
 wait(0)
 end
 extra.SpeedBuff.Value = 1.2
