@@ -4,21 +4,32 @@ local button = Instance.new("TextButton", gui)
 
 button.Size = UDim2.new(0, 25, 0, 25)  -- Button size (25x25)
 button.Position = UDim2.new(0.5, 0, 0.3, 0)  -- Centered horizontally, adjusted vertically
-button.Text = "⚽"
+button.Text = "⛹️"
 button.TextScaled = true
 button.Draggable = true
 
 button.MouseButton1Click:Connect(function()
-    local args = {
-    [1] = Vector3.new(-667.6532592773438, 67.21581268310547, 319.27490234375),
-    [2] = 96.94548469878183,
-    [3] = Vector3.new(-0.7095082402229309, 0.3759364187717438, 0.5960450172424316),
+    
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+-- Offset the ball's position to be 1 stud above and 2 studs in front of the player
+local spawnPosition = hrp.Position + Vector3.new(0, 1, 0) + (hrp.CFrame.LookVector * 2)
+
+local args = {
+    [1] = spawnPosition,  -- Position the ball 1 unit above and 2 studs in front of the player
+    [2] = 20,  -- Power is now 20
+    [3] = Vector3.new(-0.3842552602291107, 0.8905673027038574, 0.24338799715042114),
     [4] = false,
-    [5] = false,
+    [5] = true,
     [6] = false,
     [7] = false,
-    [8] = Vector3.new(-685.9890747070312, 55.81272888183594, 249.34292602539062),
+    [8] = hrp.Position,  -- Targeting the player's position
     [9] = 0
 }
+
 game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))
+
+
 end)
