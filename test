@@ -1,1 +1,23 @@
-aaa
+local player = game.CoreGui
+local gui = Instance.new("ScreenGui", player)
+local button = Instance.new("TextButton", gui)
+
+button.Size = UDim2.new(0, 25, 0, 25)  -- Button size (25x25)
+button.Position = UDim2.new(0.5, -12.5, 1, -50)  -- Centered horizontally, adjusted vertically
+button.Text = "⚽"
+button.TextScaled = true
+
+button.MouseButton1Click:Connect(function()
+    local args = {
+    [1] = Vector3.new(-667.6532592773438, 67.21581268310547, 319.27490234375),
+    [2] = 96.94548469878183,
+    [3] = Vector3.new(-0.7095082402229309, 0.3759364187717438, 0.5960450172424316),
+    [4] = false,
+    [5] = false,
+    [6] = false,
+    [7] = false,
+    [8] = Vector3.new(-685.9890747070312, 55.81272888183594, 249.34292602539062),
+    [9] = 0
+}
+
+game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))end)
