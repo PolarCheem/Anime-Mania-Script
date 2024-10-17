@@ -19,5 +19,5 @@ button.MouseButton1Click:Connect(function()
     [8] = Vector3.new(-685.9890747070312, 55.81272888183594, 249.34292602539062),
     [9] = 0
 }
-
-game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))end)
+game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))
+end)
