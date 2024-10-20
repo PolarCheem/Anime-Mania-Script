@@ -13,7 +13,7 @@ button.MouseButton1Click:Connect(function()
 local args = {
     [1] = Vector3.new(-828.2225341796875, 55.014896392822266, 125.4963607788086),
     [2] = 95.22094833431765,
-    [3] = Vector3.new(-0.3, 10, -0.9309552311897278)
+    [3] = Vector3.new(10, 10, -0.9309552311897278)
 }
 
 game:GetService("ReplicatedStorage").Remotes.StealBall:FireServer(unpack(args))
