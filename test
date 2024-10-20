@@ -11,9 +11,9 @@ button.Draggable = true
 button.MouseButton1Click:Connect(function()
     
 local args = {
-    [1] = Vector3.new(-828.2225341796875, 55.014896392822266, 125.4963607788086),
-    [2] = 95.22094833431765,
-    [3] = Vector3.new(10, 10, -0.9309552311897278)
+    [1] = Vector3.new(-765.2412719726562, 55.014896392822266, -73.49076843261719),
+    [2] = 95.32496833387995,
+    [3] = Vector3.new(10, -0.3981230556964874, 0.9170418977737427)
 }
 
 game:GetService("ReplicatedStorage").Remotes.StealBall:FireServer(unpack(args))
