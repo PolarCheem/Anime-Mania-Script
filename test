@@ -4,25 +4,31 @@ local button = Instance.new("TextButton", gui)
 
 button.Size = UDim2.new(0, 25, 0, 25)  -- Button size (25x25)
 button.Position = UDim2.new(0.5, 0, 0.3, 0)  -- Centered horizontally, adjusted vertically
-button.Text = "L"
+button.Text = "t"
 button.TextScaled = true
 button.Draggable = true
 
 button.MouseButton1Click:Connect(function()
     
 local args = {
-    [1] = Vector3.new(-647.933349609375, 55.014896392822266, 285.3658447265625),
-    [2] = 97.70406416675542,
-    [3] = Vector3.new(-0.9112820029258728, 0.34607380628585815, 0.2231547236442566),
-    [4] = false,
-    [5] = false,
-    [6] = false,
-    [7] = false,
-    [8] = Vector3.new(-660.9791870117188, 55.81489562988281, 290.6780700683594),
-    [9] = 0
+    [1] = Vector3.new(-781.0045776367188, 55.014896392822266, 187.07156372070312),
+    [2] = 65,
+    [3] = Vector3.new(0.4762641191482544, 0.1204555556178093, 0.8710125684738159),
+    [4] = true,
+    [5] = true,
+    [8] = Vector3.new(-807.5314331054688, 55.77482604980469, 188.7226104736328)
 }
 
 game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))
+wait(0.1)
+local args = {
+    [1] = Vector3.new(-813.6930541992188, 55.014896392822266, 193.64187622070312),
+    [2] = 97.49903999269009,
+    [3] = Vector3.new(0.4762641191482544, 0.1204555556178093, 0.8710125684738159)
+}
+
+game:GetService("ReplicatedStorage").Remotes.StealBall:FireServer(unpack(args))
+
 end)
 
 local player = game.CoreGui
