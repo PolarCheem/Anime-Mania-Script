@@ -48,8 +48,8 @@ local extra = char.Extra
 player.PlayerGui.JumpCooldown:Destroy()
 
 while true do
-char.DefHitbox.Size = Vector3.new(15,15,15)
-char.BallControl.Size = Vector3.new(35,35,35)
+char.DefHitbox.Size = Vector3.new(20,20,8)
+char.BallControl.Size = Vector3.new(20,20,8)
 char.ChargeMeter.Value = 100
 char.Stamina.Value = 230
 wait(0)
