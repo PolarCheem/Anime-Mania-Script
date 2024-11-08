@@ -1,1 +1,67 @@
--- yeah
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", game.CoreGui)
+local button = Instance.new("TextButton", gui)
+
+local Players = game:GetService("Players")
+local animationId = "rbxassetid://12142325494"
+local animation = Instance.new("Animation")
+animation.AnimationId = animationId
+
+local function playAnimation(character)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator")
+        animator.Parent = humanoid
+
+        -- Stop all other animations
+        for _, track in ipairs(animator:GetPlayingAnimationTracks()) do
+            track:Stop()
+        end
+
+        -- Play the specified animation
+        local animationTrack = animator:LoadAnimation(animation)
+        animationTrack:Play()
+    end
+end
+
+button.Size = UDim2.new(0, 25, 0, 25)
+button.Position = UDim2.new(0.5, 0, 0.3, 0)
+button.Text = "t"
+button.TextScaled = true
+button.Draggable = true
+
+button.MouseButton1Click:Connect(function()
+    local character = player.Character
+    if not character then return end
+
+    local hrp = character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+
+    local lookDirection = hrp.CFrame.LookVector
+    local heightOffset = 0.45
+
+    local shootArgs = {
+        hrp.Position + lookDirection * 10,
+        100,
+        Vector3.new(lookDirection.X, heightOffset, lookDirection.Z).Unit,
+        false,
+        false,
+        false,
+        false,
+        hrp.Position + lookDirection * 15,
+        0
+    }
+
+    game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(shootArgs))
+    wait(0)
+    playAnimation(character)
+    wait(0)
+
+    local stealArgs = {
+        hrp.Position + Vector3.new(0, heightOffset, 0),
+        100,
+        Vector3.new(lookDirection.X, heightOffset, lookDirection.Z).Unit
+    }
+
+    game:GetService("ReplicatedStorage").Remotes.StealBall:FireServer(unpack(stealArgs))
+end)
