@@ -12,7 +12,7 @@ button.MouseButton1Click:Connect(function()
     
 local args = {
     [1] = game:GetService("Players").LocalPlayer.Character.Animations.isPlaying,
-    [2] = 1000,
+    [2] = 5000,
     [3] = "IchigoShikaiThird",
     [4] = 14
 }
