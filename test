@@ -11,23 +11,13 @@ button.Draggable = true
 button.MouseButton1Click:Connect(function()
     
 local args = {
-    [1] = Vector3.new(-781.0045776367188, 55.014896392822266, 187.07156372070312),
-    [2] = 65,
-    [3] = Vector3.new(0.4762641191482544, 0.1204555556178093, 0.8710125684738159),
-    [4] = true,
-    [5] = true,
-    [8] = Vector3.new(-807.5314331054688, 55.77482604980469, 188.7226104736328)
+    [1] = game:GetService("Players").LocalPlayer.Character.Animations.isPlaying,
+    [2] = 1000,
+    [3] = "IchigoShikaiThird",
+    [4] = 14
 }
 
-game:GetService("ReplicatedStorage").Remotes.ShootBall:FireServer(unpack(args))
-wait(0.1)
-local args = {
-    [1] = Vector3.new(-813.6930541992188, 55.014896392822266, 193.64187622070312),
-    [2] = 97.49903999269009,
-    [3] = Vector3.new(0.4762641191482544, 0.1204555556178093, 0.8710125684738159)
-}
-
-game:GetService("ReplicatedStorage").Remotes.StealBall:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Attacks.Aizen.Events.ThirdAttack:FireServer(unpack(args))
 
 end)
 
