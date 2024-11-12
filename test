@@ -12,12 +12,12 @@ button.MouseButton1Click:Connect(function()
     
 local args = {
     [1] = game:GetService("Players").LocalPlayer.Character.Animations.isPlaying,
-    [2] = 5000,
-    [3] = "IchigoShikaiThird",
-    [4] = 14
+    [2] = 20000,
+    [3] = "IchigoShikaiLast",
+    [4] = 15
 }
 
-game:GetService("ReplicatedStorage").Attacks.Aizen.Events.ThirdAttack:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Attacks.Kenpachi.Events.LastAttack:FireServer(unpack(args))
 
 end)
 
