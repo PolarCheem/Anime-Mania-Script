@@ -4,41 +4,13 @@ local button = Instance.new("TextButton", gui)
 
 button.Size = UDim2.new(0, 25, 0, 25)  -- Button size (25x25)
 button.Position = UDim2.new(0.5, 0, 0.3, 0)  -- Centered horizontally, adjusted vertically
-button.Text = "100"
+button.Text = "d"
 button.TextScaled = true
 button.Draggable = true
 
 button.MouseButton1Click:Connect(function()
     
-local args = {
-    [1] = {
-        ["Action"] = "StartMeter",
-        ["DunkType"] = "Long",
-        ["Shift"] = true,
-        ["ShotType"] = "Normal",
-        ["ShotName"] = "Reg"
-    }
-}
-
-game:GetService("ReplicatedStorage").Lib.EventsPlayer.Actions:FireServer(unpack(args))
-wait(0.35)
-local args = {
-    [1] = {
-        ["Action"] = "StopMeter",
-        ["PumpFake"] = false
-    }
-}
-
-game:GetService("ReplicatedStorage").Lib.EventsPlayer.Actions:FireServer(unpack(args))
-wait(0)
-local args = {
-    [1] = {
-        ["Action"] = "ShootBall",
-        ["ClientTime"] = 0
-    }
-}
-
-game:GetService("ReplicatedStorage").Lib.EventsPlayer.Actions:FireServer(unpack(args))
+game:GetService("ReplicatedStorage").Packages.Knit.Services.BallService.RE.Dribble:FireServer()
 end)
 
 local player = game.CoreGui
