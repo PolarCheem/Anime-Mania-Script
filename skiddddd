@@ -1,8 +1,86 @@
-local lib = loastring(game:HttpGet("https://raw.githubusercontent.com/PolarCheem/Anime-Mania-Script/refs/heads/main/aaaa"))()
+-- Function to get a part by name and class type
+local function getPartByNameAndClass(character, name, class)
+    for _, v in pairs(character:GetChildren()) do
+        if v.Name == name and v:IsA(class) then
+            return v
+        end
+    end
+    return nil
+end
 
-local win = lib:Create("Shit Lib","Game Name")
-local a = win:tab("Hi test",true)
+-- Function to simulate grabbing the football
+local function grabFootball(character, football)
+    -- Create an AlignPosition to move the ball smoothly to the player
+    local alignPosition = Instance.new("AlignPosition")
+    alignPosition.MaxForce = 1000000  -- Maximum force to move the ball
+    alignPosition.Responsiveness = 50  -- How quickly the ball moves to the target position
+    alignPosition.Parent = football
 
-a:dropdown("Select Option", {"Option 1", "Option 2", "Option 3"}, function(selected)
-    print("Selected: " .. selected)
-end)
+    -- Set the ball to follow the player's position (usually near their hands or in front of them)
+    local handPosition = character:FindFirstChild("RightHand") or character:FindFirstChild("LeftHand") or character:FindFirstChild("HumanoidRootPart")
+    
+    if handPosition then
+        alignPosition.Position = handPosition.Position + handPosition.CFrame.LookVector * 2  -- Position the ball in front of the player
+    end
+
+    -- Optional: Add a BodyGyro to make sure the ball stays aligned
+    local bodyGyro = Instance.new("BodyGyro")
+    bodyGyro.MaxTorque = Vector3.new(1000000, 1000000, 1000000)
+    bodyGyro.CFrame = handPosition.CFrame
+    bodyGyro.Parent = football
+
+    -- Wait for a moment to simulate the grabbing interaction
+    wait(1)
+
+    -- Remove the AlignPosition and BodyGyro to stop the ball from moving with the player
+    alignPosition:Destroy()
+    bodyGyro:Destroy()
+
+    -- Optionally, you can parent the football to the character to make it a part of the player
+    -- football.Parent = character -- Uncomment if you want to attach the football to the character
+end
+
+-- Expanding the hitboxes in the workspace (Football and Player's DiveHitbox)
+for i, v in pairs(game.Workspace:GetChildren()) do
+    if v:IsA("Model") and v.Name == "Football" then
+        if v:FindFirstChild("Hitbox") then
+            v.Hitbox.Size = Vector3.new(12,12,12)
+        end
+    end
+end
+
+-- Modifying the Football's Hitbox size directly
+local football = game.Workspace:FindFirstChild("Football")
+if football and football:FindFirstChild("Hitbox") then
+    football.Hitbox.Size = Vector3.new(15,15,15)
+end
+
+-- Infinite loop to adjust player's DiveHitbox size and transparency, as well as check proximity
+while true do
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        -- Find and modify DiveHitbox
+        local diveHitbox = getPartByNameAndClass(character, "DiveHitbox", "Part")
+        if diveHitbox then
+            diveHitbox.Size = Vector3.new(15,15,3)
+            diveHitbox.Transparency = 1 -- Add transparency
+            print("hb modified") -- Print when modified
+        end
+
+        -- Check for proximity between Player and Football Hitbox
+        local football = game.Workspace:FindFirstChild("Football")
+        if football and football:FindFirstChild("Hitbox") then
+            local footballHitbox = football.Hitbox
+            local playerHitbox = character:FindFirstChild("Hitbox")
+            if footballHitbox and playerHitbox then
+                local distanceToHitbox = (playerHitbox.Position - footballHitbox.Position).Magnitude
+                if distanceToHitbox <= 10 then -- Adjust distance threshold for grabbing
+                    -- Simulate grabbing the football when close
+                    grabFootball(character, football)
+                    print("Football grabbed")
+                end
+            end
+        end
+    end
+    wait(0) -- Wait a short moment before checking again (this prevents high CPU usage)
+end
